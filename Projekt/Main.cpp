@@ -13,6 +13,7 @@ using namespace std;
 
 int main()
 {
+	vector<unsigned long> daty_vec;
 	string fin_path = "D:\wizyty.txt";
 	fstream fin;
 	fin.open(fin_path);
@@ -20,10 +21,38 @@ int main()
 	{
 		string wiersz;
 		vector<string> wizyta_vec;
+
+		Lekarz * gLekarz = NULL;
+		Pacjent * gPacjent = NULL;
+
 		while (!fin.eof())
 		{
 			getline(fin, wiersz);
 			wizyta_vec = pobierz(wiersz);
+			unsigned long data = 0;
+			string l_nazwisko;
+			string p_nazwisko;
+
+			try 
+			{
+				data = stoul(wizyta_vec[0]);
+			}
+			catch (exception e) 
+			{
+				cout << "Z³y format daty w pliku wejœciowym. Data: " << wizyta_vec[0] << endl;
+				return -1;
+			}
+
+			p_nazwisko = wizyta_vec[1];
+			l_nazwisko = wizyta_vec[2];
+
+			if (!lekarzIstnieje(gLekarz, l_nazwisko))
+			{
+				dodajLekarza(gLekarz, l_nazwisko);
+			}
+
+
+
 		}
 	}
 	fin.close();

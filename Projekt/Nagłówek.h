@@ -8,12 +8,6 @@ using namespace std;
 
 #pragma region Struktury
 
-struct Data
-{
-	int rok, miesiac, dzien, numer;
-};
-
-
 struct Pacjent
 {
 	string nazwisko;
@@ -22,7 +16,7 @@ struct Pacjent
 
 struct Wizyta
 {
-	Data * data_wizyty;
+	unsigned long data_wizyty;
 	string nazwisko_pacjenta;
 	Pacjent * wsk_pacjent;
 	Wizyta * wsk_nastepna_wizyta;
@@ -43,6 +37,14 @@ struct Lekarz
 #pragma region Funkcje
 
 vector <string> pobierz(string);
+
+bool lekarzIstnieje(Lekarz *, string);
+
+void dodajLekarza(Lekarz * &, string );
+
+bool pacjentIstnieje(Pacjent *, string);
+
+void dodajPacjenta(Pacjent * & , string );
 
 #pragma endregion
 
