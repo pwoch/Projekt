@@ -70,3 +70,22 @@ void dodajPacjenta(Pacjent * & gPacjent, string p_nazwisko)
 	gPacjent = new Pacjent{ p_nazwisko, gPacjent};
 }
 
+void dodajWizyte(Lekarz * gLekarz, Pacjent * gPacjent, string l_nazwisko,unsigned long data_wizyty, string p_nazwisko)
+{
+	Pacjent * tmpPacjent = NULL;
+	while (gPacjent)
+	{
+		if (p_nazwisko == gPacjent->nazwisko)
+		{
+			tmpPacjent = gPacjent;
+		}
+	}
+	while (gLekarz)
+	{
+		if (l_nazwisko == gLekarz->nazwisko)
+		{
+			
+			gLekarz->head_wizyty = new Wizyta{data_wizyty,p_nazwisko,tmpPacjent,gLekarz->head_wizyty};
+		}
+	}
+}

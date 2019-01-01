@@ -51,12 +51,17 @@ int main()
 				dodajLekarza(gLekarz, l_nazwisko);
 			}
 
+			dodajWizyte(gLekarz, gPacjent, l_nazwisko, data, p_nazwisko);
 
 
 		}
 	}
 	fin.close();
 	
+
+	//TODO: Zwolnienie pamieci -> usuniecie list itp.
+	//TODO: Sprawdzanie wyciekow pamieci
+	//TODO: Dokumentacja doxygen
 	system("pause");
 
 	return 0;

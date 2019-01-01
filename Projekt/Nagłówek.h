@@ -46,6 +46,8 @@ bool pacjentIstnieje(Pacjent *, string);
 
 void dodajPacjenta(Pacjent * & , string );
 
+void dodajWizyte(Lekarz * , Pacjent * , string , unsigned long , string );
+
 #pragma endregion
 
 
