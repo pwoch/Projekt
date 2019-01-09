@@ -178,7 +178,7 @@ void usunLekarza(Lekarz * & gLekarz, string lekarz)
 					if (gLekarz->nazwisko != lekarz) //TODO: dokonczyc funkcje
 
 					{
-						//dodaj najbli¿szy termin
+						//dodaj najbli¿szy termin wizyty
 						//usuñ pL->head_wizyty
 					}
 					else
