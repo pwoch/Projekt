@@ -44,9 +44,13 @@ void dodajLekarza(Lekarz * &, string );
 
 bool pacjentIstnieje(Pacjent *, string);
 
-void dodajPacjenta(Pacjent * & , string );
+void dodajPacjenta(Pacjent * & , string);
 
-void dodajWizyte(Lekarz * , Pacjent * , string , unsigned long , string );
+void dodajWizyte(Lekarz * , Pacjent * , string , unsigned long , string);
+
+void zamienWizyte(Lekarz * , Pacjent * , string , unsigned long);
+
+void wypisz(Lekarz *);
 
 #pragma endregion
 
