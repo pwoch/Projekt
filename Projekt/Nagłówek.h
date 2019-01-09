@@ -40,7 +40,7 @@ vector <string> pobierz(string);
 
 bool lekarzIstnieje(Lekarz *, string);
 
-void dodajLekarza(Lekarz * &, string );
+void dodajLekarza(Lekarz * &, string);
 
 bool pacjentIstnieje(Pacjent *, string);
 
@@ -48,9 +48,13 @@ void dodajPacjenta(Pacjent * & , string);
 
 void dodajWizyte(Lekarz * , Pacjent * , string , unsigned long , string);
 
+void wypisz(Lekarz *);
+
+void usunKonkretnaWizyte(Wizyta * & , string , unsigned long);
+
 void zamienWizyte(Lekarz * , Pacjent * , string , unsigned long);
 
-void wypisz(Lekarz *);
+void usunLekarza(Lekarz * , string);
 
 #pragma endregion
 

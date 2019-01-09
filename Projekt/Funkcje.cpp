@@ -87,56 +87,8 @@ void dodajWizyte(Lekarz * gLekarz, Pacjent * gPacjent, string l_nazwisko,unsigne
 	{
 		if (l_nazwisko == gLekarz->nazwisko)
 		{
-			
 			gLekarz->head_wizyty = new Wizyta{data_wizyty,p_nazwisko,tmpPacjent,gLekarz->head_wizyty};
-		}
-		gLekarz = gLekarz->wsk_nastepny_lekarz;
-	}
-}
-
-void usunKonkretnaWizyte(Lekarz * gLekarz, Wizyta * & head_wizyty, string pacjent, unsigned long data)
-{
-	Wizyta * p, *poprzedni;
-	poprzedni = NULL;
-	for (p = gLekarz->head_wizyty; p != NULL; poprzedni = p, p = p->wsk_nastepna_wizyta)
-	{
-		if (p->nazwisko_pacjenta == pacjent and p->data_wizyty == data)
-		{
-			if (poprzedni == NULL)
-			{
-				gLekarz->head_wizyty = p->wsk_nastepna_wizyta;
-			}
-			else
-			{
-				poprzedni->wsk_nastepna_wizyta = p->wsk_nastepna_wizyta;
-			}
-			delete p;
-		}
-		else
-		{
-			cout << "Nie ma takiej wizyty" << endl;
-		}
-	}
-}
-
-void zamienWizyte(Lekarz * gLekarz, Pacjent * gPacjent, string pacjent, unsigned long data)
-{
-	usunKonkretnaWizyte(gLekarz, gLekarz->head_wizyty, pacjent, data);
-	while (gLekarz)
-	{
-		Wizyta * p = gLekarz->head_wizyty;
-		data += 100;
-		while (p)
-		{
-			if (p->data_wizyty != data)
-			{
-				dodajWizyte(gLekarz, gPacjent,gLekarz->nazwisko ,data, pacjent);
-			}
-			else
-			{
-				data += 10;
-			}
-			p = p->wsk_nastepna_wizyta;
+			return;
 		}
 		gLekarz = gLekarz->wsk_nastepny_lekarz;
 	}
@@ -157,53 +109,167 @@ unsigned long pobierzCzas()
 	return data;
 }
 
-void usunLekarza(Lekarz * & gLekarz, string lekarz)
+void wypisz(Lekarz * gLekarz)
 {
 	Lekarz * pL = gLekarz;
-	unsigned long obecna_data = pobierzCzas();
 	while (pL)
 	{
-		if (gLekarz->nazwisko == lekarz)
+		Wizyta * pW = pL->head_wizyty;
+		while (pW)
 		{
+			cout << pW->data_wizyty << ";" << pW->nazwisko_pacjenta << ";" << pL->nazwisko << endl;
+			pW = pW->wsk_nastepna_wizyta;
+		}
+		pL = pL->wsk_nastepny_lekarz;
+	}
+}
+
+void usunKonkretnaWizyte(Wizyta * & head, string pacjent,unsigned long data)
+{
+	Wizyta * p, *pop;
+
+	pop = NULL;
+
+	for (p = head; p != NULL; pop = p, p = p->wsk_nastepna_wizyta)
+	{
+		if (p->data_wizyty == data and p->nazwisko_pacjenta == pacjent)
+		{ 
+			if (pop == NULL)
+			{
+				head = p->wsk_nastepna_wizyta;
+			}
+			else
+			{
+				pop->wsk_nastepna_wizyta = p->wsk_nastepna_wizyta;
+			}
+
+			delete p;
+
+			return;
+		}
+	}
+}
+
+void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned long data)
+{
+	Lekarz * pL = gLekarz;
+	
+	bool wizyta_przepisana = false;
+	while (pL)
+	{
+		usunKonkretnaWizyte(pL->head_wizyty, pacjent, data);
+		pL = pL->wsk_nastepny_lekarz;
+	}
+	pL = gLekarz;
+	string tmp_data = to_string(data);
+	tmp_data[8] = '0';
+	tmp_data[9] = '0';
+	data = stoul(tmp_data);
+	data += 101;
+	while (wizyta_przepisana == false)
+	{
+		while (pL)
+		{
+			bool data_wystapila = false;
+			bool koniec_wizyt = false;
 			Wizyta * pW = pL->head_wizyty;
 			while (pW)
 			{
-				if (pW->data_wizyty < obecna_data)
+				if (pW->data_wizyty == data)
 				{
-					pL->head_wizyty = pW;
-					delete pW;
+					data_wystapila = true;
+				}
+				if (pW->wsk_nastepna_wizyta == NULL)
+				{
+					koniec_wizyt = true;
+				}
+				if (!data_wystapila and koniec_wizyt)
+				{
+					dodajWizyte(gLekarz, gPacjent, pL->nazwisko, data, pacjent);
+					wizyta_przepisana = true;
+					return;
+				}
+				pW = pL->head_wizyty->wsk_nastepna_wizyta;
+			}
+			
+			pL = pL->wsk_nastepny_lekarz;
+		}
+		pL = gLekarz;
+		data = data + 1;
+	}
+}
+
+void usunLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
+{
+	Lekarz * pL1 = gLekarz;
+	Lekarz * pL2 = gLekarz;
+	Lekarz * pL3 = NULL;
+	unsigned long aktualna_data = pobierzCzas();
+	while (pL1)
+	{
+		if (pL1->nazwisko == lekarz)
+		{
+			Wizyta * pW1 = pL1->head_wizyty;
+			while (pW1)
+			{
+				if (pW1->data_wizyty < aktualna_data)
+				{
+					usunKonkretnaWizyte(pW1, pW1->nazwisko_pacjenta, pW1->data_wizyty);
 				}
 				else
 				{
-					if (gLekarz->nazwisko != lekarz) //TODO: dokonczyc funkcje
-
+					if (pL2->nazwisko == lekarz)
 					{
-						//dodaj najbli¿szy termin wizyty
-						//usuñ pL->head_wizyty
+						if (pL2->wsk_nastepny_lekarz == NULL)
+						{
+							pL2 = gLekarz;
+						}
+						else {
+							pL2 = pL2->wsk_nastepny_lekarz;
+						}
+						pL3 = pL2;
+						while (pL3)
+						{
+							if (pL2->head_wizyty->data_wizyty != pW1->data_wizyty)
+							{
+								dodajWizyte(gLekarz, gPacjent, pL3->nazwisko, pW1->data_wizyty, pW1->nazwisko_pacjenta);
+								return;
+							}
+							else
+							{
+								pW1->data_wizyty += 10;
+							}
+							pL3 = pL3->wsk_nastepny_lekarz;
+						}
 					}
 					else
 					{
-						gLekarz = gLekarz->wsk_nastepny_lekarz;
+						while (pL3)
+						{
+							if (pL2->head_wizyty->data_wizyty != pW1->data_wizyty)
+							{
+								dodajWizyte(gLekarz, gPacjent, pL3->nazwisko, pW1->data_wizyty, pW1->nazwisko_pacjenta);
+								return;
+							}
+							else
+							{
+								pW1->data_wizyty += 10;
+							}
+							pL3 = pL3->wsk_nastepny_lekarz;
+						}
+						if (pL2->wsk_nastepny_lekarz == NULL)
+						{
+							pL2 = gLekarz;
+						}
+						else
+						{
+							pL2 = pL2->wsk_nastepny_lekarz;
+						}
 					}
-
 				}
 			}
+			pW1 = pW1->wsk_nastepna_wizyta;
 		}
-	}
-	gLekarz = gLekarz->wsk_nastepny_lekarz;
-
-
-}
-
-void wypisz(Lekarz * gLekarz)
-{
-	while (gLekarz)
-	{
-		while (gLekarz->head_wizyty)
-		{
-			cout << gLekarz->head_wizyty->data_wizyty << ";" << gLekarz->head_wizyty->nazwisko_pacjenta << ";" << gLekarz->nazwisko << endl;
-			gLekarz->head_wizyty = gLekarz->head_wizyty->wsk_nastepna_wizyta;
-		}
-		gLekarz = gLekarz->wsk_nastepny_lekarz;
+		pL1 = pL1->wsk_nastepny_lekarz;
 	}
 }
