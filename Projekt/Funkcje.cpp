@@ -6,7 +6,6 @@
 #include <winbase.h>
 #include "Nag³ówek.h"
 
-
 using namespace std;
 
 vector <string> pobierz (string input)
@@ -201,75 +200,29 @@ void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned 
 
 void usunLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 {
-	Lekarz * pL1 = gLekarz;
-	Lekarz * pL2 = gLekarz;
-	Lekarz * pL3 = NULL;
-	unsigned long aktualna_data = pobierzCzas();
-	while (pL1)
+	Lekarz * pL = gLekarz;
+	Lekarz * usuwanyL = NULL;
+	while (pL)
 	{
-		if (pL1->nazwisko == lekarz)
+		if (pL->nazwisko == lekarz)
 		{
-			Wizyta * pW1 = pL1->head_wizyty;
-			while (pW1)
-			{
-				if (pW1->data_wizyty < aktualna_data)
-				{
-					usunKonkretnaWizyte(pW1, pW1->nazwisko_pacjenta, pW1->data_wizyty);
-				}
-				else
-				{
-					if (pL2->nazwisko == lekarz)
-					{
-						if (pL2->wsk_nastepny_lekarz == NULL)
-						{
-							pL2 = gLekarz;
-						}
-						else {
-							pL2 = pL2->wsk_nastepny_lekarz;
-						}
-						pL3 = pL2;
-						while (pL3)
-						{
-							if (pL2->head_wizyty->data_wizyty != pW1->data_wizyty)
-							{
-								dodajWizyte(gLekarz, gPacjent, pL3->nazwisko, pW1->data_wizyty, pW1->nazwisko_pacjenta);
-								return;
-							}
-							else
-							{
-								pW1->data_wizyty += 10;
-							}
-							pL3 = pL3->wsk_nastepny_lekarz;
-						}
-					}
-					else
-					{
-						while (pL3)
-						{
-							if (pL2->head_wizyty->data_wizyty != pW1->data_wizyty)
-							{
-								dodajWizyte(gLekarz, gPacjent, pL3->nazwisko, pW1->data_wizyty, pW1->nazwisko_pacjenta);
-								return;
-							}
-							else
-							{
-								pW1->data_wizyty += 10;
-							}
-							pL3 = pL3->wsk_nastepny_lekarz;
-						}
-						if (pL2->wsk_nastepny_lekarz == NULL)
-						{
-							pL2 = gLekarz;
-						}
-						else
-						{
-							pL2 = pL2->wsk_nastepny_lekarz;
-						}
-					}
-				}
-			}
-			pW1 = pW1->wsk_nastepna_wizyta;
+			usuwanyL = pL;
 		}
-		pL1 = pL1->wsk_nastepny_lekarz;
+		pL = pL->wsk_nastepny_lekarz;
+	}
+	pL = gLekarz;
+	Wizyta * pW = usuwanyL->head_wizyty;
+	while (pW)
+	{
+		if (pL->wsk_nastepny_lekarz==NULL)
+		{
+			pL = gLekarz;
+		}
+		if(pL->nazwisko==lekarz)
+		{
+			pL = pL->wsk_nastepny_lekarz;
+		}
+		dodajWizyte(gLekarz, gPacjent, pL->nazwisko, pW->data_wizyty, pW->nazwisko_pacjenta);
+		pW = pW->wsk_nastepna_wizyta;
 	}
 }

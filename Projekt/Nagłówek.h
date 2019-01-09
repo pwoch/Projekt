@@ -54,8 +54,7 @@ void usunKonkretnaWizyte(Wizyta * & , string , unsigned long);
 
 void zamienWizyte(Lekarz * , Pacjent * , string , unsigned long);
 
-void usunLekarza(Lekarz * , string);
-
+void usunLekarza(Lekarz * , Pacjent * , string);
 #pragma endregion
 
 

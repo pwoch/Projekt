@@ -59,6 +59,7 @@ int main()
 	wypisz(gLekarz);
 	cout << endl;
 	zamienWizyte(gLekarz, gPacjent , "pKowalski", 2018101101);
+	usunLekarza(gLekarz, gPacjent, "lFrankowski");
 	wypisz(gLekarz);
 
 	/*fin.open(fin_path);
