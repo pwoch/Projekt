@@ -4,6 +4,7 @@
 #include <vector>
 #include <windows.h>
 #include <winbase.h>
+#include <climits>
 #include "Nag³ówek.h"
 
 using namespace std;
@@ -119,6 +120,7 @@ void wypisz(Lekarz * gLekarz)
 			cout << pW->data_wizyty << ";" << pW->nazwisko_pacjenta << ";" << pL->nazwisko << endl;
 			pW = pW->wsk_nastepna_wizyta;
 		}
+		cout << "Srednia wizyt dla lekarza " << pL->nazwisko << ": " << pL->œrednia << endl;
 		pL = pL->wsk_nastepny_lekarz;
 	}
 }
@@ -155,29 +157,26 @@ void usunKonkretnegoLekarza(Lekarz *& head, string lekarz)
 
 	prev = NULL;
 
-	for (curr = head; curr != NULL; prev = curr , curr = curr->wsk_nastepny_lekarz) 
+	for (curr = head; curr != NULL; prev = curr, curr = curr->wsk_nastepny_lekarz)
 	{
 
-		if (curr->nazwisko == lekarz) 
-		{  
-			if (prev == NULL) 
+		if (curr->nazwisko == lekarz)
+		{
+			if (prev == NULL)
 			{
 				head = curr->wsk_nastepny_lekarz;
 			}
-			else 
+			else
 			{
 				prev->wsk_nastepny_lekarz = curr->wsk_nastepny_lekarz;
 			}
 
-			//free(curr);
-			//delete curr;
+			delete curr;
 
 			return;
 		}
 	}
-
-
-
+	
 
 	/*Lekarz * p, *pop;
 
@@ -324,10 +323,67 @@ void przeniesLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 	}
 }
 
-void usunLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
+void usunLekarza(Lekarz *& gLekarz, Pacjent * gPacjent, string lekarz)
 {
 	przeniesLekarza(gLekarz, gPacjent, lekarz);
 	usunListeWizyt(gLekarz->head_wizyty);
 	usunKonkretnegoLekarza(gLekarz, lekarz);
 
+}
+
+void liczSrednie(Lekarz * gLekarz) 
+{
+	while (gLekarz)
+	{
+		unsigned long max = 0;
+		unsigned long min = ULONG_MAX;
+		int iterator = 0;
+		Wizyta * gWizyta = gLekarz->head_wizyty;
+
+		while (gWizyta)
+		{
+			int currentDate = gWizyta->data_wizyty;
+			if(currentDate < min)
+			{
+				min = currentDate;
+			}
+			if (currentDate > max) 
+			{
+				max = currentDate;
+			}
+			++iterator;
+			gWizyta = gWizyta->wsk_nastepna_wizyta;
+		}
+
+		int rok_min = obetnijDoRoku(min);
+		int rok_max = obetnijDoRoku(max);
+		int miesiac_min = obetnijDoMiesiaca(min);
+		int miesiac_max = obetnijDoMiesiaca(max);
+		double srednia = 0;
+		int mianownik = (miesiac_max - miesiac_min + 1 + (rok_max - rok_min) * 12);
+		if (mianownik != 0) 
+		{
+			srednia = iterator / mianownik;
+		}
+		
+		
+		gLekarz->œrednia = srednia;
+		gLekarz = gLekarz->wsk_nastepny_lekarz;
+	}
+}
+
+int obetnijDoRoku(unsigned long data) 
+{
+	string tmp_data = to_string(data);
+	string newData = to_string(tmp_data[0]) + to_string(tmp_data[1]) + to_string(tmp_data[2]) + to_string(tmp_data[3]);
+	int year = stoi(newData);
+	return year;
+}
+
+int obetnijDoMiesiaca(unsigned long data) 
+{
+	string tmp_data = to_string(data);
+	string newData = to_string(tmp_data[4]) + to_string(tmp_data[5]);
+	int month = stoi(newData);
+	return month;
 }

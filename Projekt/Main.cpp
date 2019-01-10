@@ -58,24 +58,11 @@ int main()
 
 	wypisz(gLekarz);
 	cout << endl;
-	//zamienWizyte(gLekarz, gPacjent , "pKowalski", 2018101101);
+	zamienWizyte(gLekarz, gPacjent , "pKowalski", 2018101101);
 	usunLekarza(gLekarz, gPacjent, "lFrankowski");
+	liczSrednie(gLekarz);
 	wypisz(gLekarz);
 
-	/*fin.open(fin_path);
-	if (fin.good())
-	{
-		while (gLekarz)
-		{
-			while (gLekarz->head_wizyty)
-			{
-				fin << gLekarz->head_wizyty->data_wizyty << ";" << gLekarz->head_wizyty->nazwisko_pacjenta << ";" << gLekarz->nazwisko << endl;
-				gLekarz->head_wizyty = gLekarz->head_wizyty->wsk_nastepna_wizyta;
-			}
-			gLekarz = gLekarz->wsk_nastepny_lekarz;
-		}
-	}
-	fin.close;*/
 
 	//TODO: Zwolnienie pamieci -> usuniecie list itp.
 	//TODO: Dokumentacja doxygen

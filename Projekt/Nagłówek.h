@@ -58,9 +58,15 @@ void usunListeWizyt(Wizyta * & );
 
 void zamienWizyte(Lekarz * , Pacjent * , string , unsigned long);
 
-void usunLekarza(Lekarz * , Pacjent * , string);
+void usunLekarza(Lekarz *& , Pacjent * , string);
 
-void usunLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz);
+//void usunLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz);
+
+void liczSrednie(Lekarz *);
+
+int obetnijDoRoku(unsigned long);
+
+int obetnijDoMiesiaca(unsigned long);
 
 #pragma endregion
 
