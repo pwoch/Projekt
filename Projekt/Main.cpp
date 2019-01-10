@@ -60,8 +60,8 @@ int main(int argc, char * argv[])
 	//
 	wypisz(gLekarz);
 	cout << endl;
-	zamienWizyte(gLekarz, gPacjent , "pKowalski", 2018101101);
-	usunLekarza(gLekarz, gPacjent, "lFrankowski");
+	//zamienWizyte(gLekarz, gPacjent , "pKowalski", 2018101101);
+	//usunLekarza(gLekarz, gPacjent, "lFrankowski");
 	liczSrednie(gLekarz);
 	wypisz(gLekarz);
 	//
@@ -69,13 +69,19 @@ int main(int argc, char * argv[])
 	ofstream fin_updated(fin_path);
 	if (fin_updated.good()) 
 	{
+		int iterator = 0;
 		Lekarz * pL = gLekarz;
 		while (pL)
 		{
 			Wizyta * pW = pL->head_wizyty;
 			while (pW)
 			{
-				fin_updated << pW->data_wizyty << ";" << pW->nazwisko_pacjenta << ";" << pL->nazwisko << endl;
+				if (iterator != 0) 
+				{
+					fin_updated << endl;
+				}
+				fin_updated << pW->data_wizyty << ";" << pW->nazwisko_pacjenta << ";" << pL->nazwisko;
+				++iterator;
 				pW = pW->wsk_nastepna_wizyta;
 			}
 			pL = pL->wsk_nastepny_lekarz;
@@ -98,11 +104,45 @@ int main(int argc, char * argv[])
 	ofstream fpacjent(fpacjent_path);
 	if (fpacjent.good())
 	{
-		//TODO
+		Lekarz * pL = gLekarz;
+		while (pL)
+		{
+			Wizyta * pW = pL->head_wizyty;
+			while (pW)
+			{
+				fin_updated << pW->data_wizyty << ";" << pW->nazwisko_pacjenta << endl;
+				pW = pW->wsk_nastepna_wizyta;
+			}
+			pL = pL->wsk_nastepny_lekarz;
+		}
 	}
 	fpacjent.close();
 
-	
+	Pacjent * pacjent_tmp = NULL;
+	while (gPacjent) 
+	{
+		pacjent_tmp = gPacjent->wsk_nastepny_pacjent;
+		delete gPacjent;
+		gPacjent = pacjent_tmp;
+	}
+	delete pacjent_tmp;
+
+	Lekarz * lekarz_tmp = NULL;
+	while (gLekarz) 
+	{
+		Wizyta * wizyta_tmp = NULL;
+		while (gLekarz->head_wizyty) 
+		{
+			wizyta_tmp = gLekarz->head_wizyty->wsk_nastepna_wizyta;
+			delete gLekarz->head_wizyty;
+			gLekarz->head_wizyty = wizyta_tmp;
+		}
+		lekarz_tmp = gLekarz->wsk_nastepny_lekarz;
+		delete gLekarz;
+		gLekarz = lekarz_tmp;
+		delete wizyta_tmp;
+	}
+	delete lekarz_tmp;
 
 	//TODO: Zwolnienie pamieci -> usuniecie list itp.
 	//TODO: Dokumentacja doxygen

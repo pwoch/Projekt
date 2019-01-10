@@ -51,7 +51,7 @@ bool lekarzIstnieje(Lekarz * gLekarz, string l_nazwisko)
 
 void dodajLekarza(Lekarz * & gLekarz, string l_nazwisko)
 {
-	gLekarz = new Lekarz{ l_nazwisko,0, gLekarz,NULL };
+	gLekarz = new Lekarz{ l_nazwisko,0, gLekarz, NULL};
 }
 
 bool pacjentIstnieje(Pacjent * gPacjent, string p_nazwisko)
