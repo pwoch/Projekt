@@ -52,9 +52,16 @@ void wypisz(Lekarz *);
 
 void usunKonkretnaWizyte(Wizyta * & , string , unsigned long);
 
+void usunKonkretnegoLekarza(Lekarz *& , string );
+
+void usunListeWizyt(Wizyta * & );
+
 void zamienWizyte(Lekarz * , Pacjent * , string , unsigned long);
 
 void usunLekarza(Lekarz * , Pacjent * , string);
+
+void usunLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz);
+
 #pragma endregion
 
 

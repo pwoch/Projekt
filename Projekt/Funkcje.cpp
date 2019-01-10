@@ -149,6 +149,71 @@ void usunKonkretnaWizyte(Wizyta * & head, string pacjent,unsigned long data)
 	}
 }
 
+void usunKonkretnegoLekarza(Lekarz *& head, string lekarz)
+{
+	Lekarz *curr, *prev;
+
+	prev = NULL;
+
+	for (curr = head; curr != NULL; prev = curr , curr = curr->wsk_nastepny_lekarz) 
+	{
+
+		if (curr->nazwisko == lekarz) 
+		{  
+			if (prev == NULL) 
+			{
+				head = curr->wsk_nastepny_lekarz;
+			}
+			else 
+			{
+				prev->wsk_nastepny_lekarz = curr->wsk_nastepny_lekarz;
+			}
+
+			//free(curr);
+			//delete curr;
+
+			return;
+		}
+	}
+
+
+
+
+	/*Lekarz * p, *pop;
+
+	pop = NULL;
+
+
+
+	for (p = head; p != NULL; pop = p, p = p->wsk_nastepny_lekarz)
+	{
+		if (p->nazwisko == lekarz)
+		{
+			if (pop == NULL)
+			{
+				head = p->wsk_nastepny_lekarz;
+			}
+			else
+			{
+				pop->wsk_nastepny_lekarz = p->wsk_nastepny_lekarz;
+			}
+
+
+			return;
+		}
+	}*/
+}
+
+void usunListeWizyt(Wizyta * & head)
+{
+	while (head)
+	{
+		Wizyta * p = head->wsk_nastepna_wizyta;
+		delete head;
+		head = p;
+	}
+}
+
 void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned long data)
 {
 	Lekarz * pL = gLekarz;
@@ -198,7 +263,7 @@ void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned 
 	}
 }
 
-void usunLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
+void przeniesLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 {
 	Lekarz * pL = gLekarz;
 	Lekarz * usuwanyL = NULL;
@@ -207,6 +272,7 @@ void usunLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 		if (pL->nazwisko == lekarz)
 		{
 			usuwanyL = pL;
+			break; //
 		}
 		pL = pL->wsk_nastepny_lekarz;
 	}
@@ -220,9 +286,48 @@ void usunLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 		}
 		if(pL->nazwisko==lekarz)
 		{
+			//if(pL->wsk_nastepny_lekarz)
+			//{
+			//	pL = pL->wsk_nastepny_lekarz;
+			//} //TODO
 			pL = pL->wsk_nastepny_lekarz;
 		}
-		dodajWizyte(gLekarz, gPacjent, pL->nazwisko, pW->data_wizyty, pW->nazwisko_pacjenta);
+		
+		bool wizyta_przepisana = false;
+		while (wizyta_przepisana == false)
+		{
+			bool data_wystapila = false;
+			bool koniec_wizyt = false;
+			Wizyta * pwiz = pL->head_wizyty;
+			while (pwiz)
+			{
+				if (pwiz->data_wizyty == pW->data_wizyty)
+				{
+					data_wystapila = true;
+				}
+				if (pwiz->wsk_nastepna_wizyta == NULL)
+				{
+					koniec_wizyt = true;
+				}
+				if (!data_wystapila && koniec_wizyt)
+				{
+					dodajWizyte(gLekarz, gPacjent, pL->nazwisko, pW->data_wizyty, pW->nazwisko_pacjenta);
+					wizyta_przepisana = true;
+					break;//return;
+				}
+				pwiz = pwiz->wsk_nastepna_wizyta;
+			}
+			pL = gLekarz->wsk_nastepny_lekarz; //bylo samo glekarz
+			pW->data_wizyty = pW->data_wizyty + 1;
+		}
 		pW = pW->wsk_nastepna_wizyta;
 	}
+}
+
+void usunLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
+{
+	przeniesLekarza(gLekarz, gPacjent, lekarz);
+	usunListeWizyt(gLekarz->head_wizyty);
+	usunKonkretnegoLekarza(gLekarz, lekarz);
+
 }
