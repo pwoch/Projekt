@@ -60,8 +60,6 @@ void zamienWizyte(Lekarz * , Pacjent * , string , unsigned long);
 
 void usunLekarza(Lekarz *& , Pacjent * , string);
 
-//void usunLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz);
-
 void liczSrednie(Lekarz *);
 
 int obetnijDoRoku(unsigned long);

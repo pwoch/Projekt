@@ -12,7 +12,7 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char * argv[])
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
@@ -20,6 +20,8 @@ int main()
 	Lekarz * gLekarz = NULL;
 	Pacjent * gPacjent = NULL;
 	string fin_path = "D:\wizyty.txt";
+	string flekarz_path = "D:\lekarz.txt";
+	string fpacjent_path = "D:\pacjent.txt";
 	fstream fin;
 	fin.open(fin_path);
 	if (fin.good())
@@ -53,16 +55,54 @@ int main()
 			dodajWizyte(gLekarz, gPacjent, l_nazwisko, data, p_nazwisko);
 		}
 	}
-	//fin.clear;
 	fin.close();
 
+	//
 	wypisz(gLekarz);
 	cout << endl;
 	zamienWizyte(gLekarz, gPacjent , "pKowalski", 2018101101);
 	usunLekarza(gLekarz, gPacjent, "lFrankowski");
 	liczSrednie(gLekarz);
 	wypisz(gLekarz);
+	//
+	
+	ofstream fin_updated(fin_path);
+	if (fin_updated.good()) 
+	{
+		Lekarz * pL = gLekarz;
+		while (pL)
+		{
+			Wizyta * pW = pL->head_wizyty;
+			while (pW)
+			{
+				fin_updated << pW->data_wizyty << ";" << pW->nazwisko_pacjenta << ";" << pL->nazwisko << endl;
+				pW = pW->wsk_nastepna_wizyta;
+			}
+			pL = pL->wsk_nastepny_lekarz;
+		}
+	}
+	fin_updated.close();
 
+	ofstream flekarz(flekarz_path);
+	if (flekarz.good()) 
+	{
+		Lekarz * pL = gLekarz;
+		while (pL)
+		{
+			flekarz << "Srednia wizyt dla lekarza " << pL->nazwisko << ": " << pL->œrednia << endl;
+			pL = pL->wsk_nastepny_lekarz;
+		}
+	}
+	flekarz.close();
+
+	ofstream fpacjent(fpacjent_path);
+	if (fpacjent.good())
+	{
+		//TODO
+	}
+	fpacjent.close();
+
+	
 
 	//TODO: Zwolnienie pamieci -> usuniecie list itp.
 	//TODO: Dokumentacja doxygen

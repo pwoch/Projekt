@@ -177,30 +177,6 @@ void usunKonkretnegoLekarza(Lekarz *& head, string lekarz)
 		}
 	}
 	
-
-	/*Lekarz * p, *pop;
-
-	pop = NULL;
-
-
-
-	for (p = head; p != NULL; pop = p, p = p->wsk_nastepny_lekarz)
-	{
-		if (p->nazwisko == lekarz)
-		{
-			if (pop == NULL)
-			{
-				head = p->wsk_nastepny_lekarz;
-			}
-			else
-			{
-				pop->wsk_nastepny_lekarz = p->wsk_nastepny_lekarz;
-			}
-
-
-			return;
-		}
-	}*/
 }
 
 void usunListeWizyt(Wizyta * & head)
