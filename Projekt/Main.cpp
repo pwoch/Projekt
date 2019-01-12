@@ -16,6 +16,9 @@ int main(int argc, char * argv[])
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
+	//TODO: argumenty wiersza poleceñ -> pozniej if, nie switch...
+	//TODO: sprawdziæ usuwanie lekarza który nie istnieje i przepisanie wizyty która nie istnieje
+
 	vector<unsigned long> daty_vec;
 	Lekarz * gLekarz = NULL;
 	Pacjent * gPacjent = NULL;
@@ -24,6 +27,7 @@ int main(int argc, char * argv[])
 	string fpacjent_path = "D:\pacjent.txt";
 	fstream fin;
 	fin.open(fin_path);
+
 	if (fin.good())
 	{
 		string wiersz;
@@ -144,7 +148,6 @@ int main(int argc, char * argv[])
 	}
 	delete lekarz_tmp;
 
-	//TODO: Zwolnienie pamieci -> usuniecie list itp.
 	//TODO: Dokumentacja doxygen
 	system("pause");
 
