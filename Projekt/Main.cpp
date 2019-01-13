@@ -18,111 +18,201 @@ int main(int argc, char * argv[])
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	//TODO: argumenty wiersza poleceñ -> pozniej if, nie switch...
 	//TODO: sprawdziæ usuwanie lekarza który nie istnieje i przepisanie wizyty która nie istnieje
+
 
 	vector<unsigned long> daty_vec;
 	Lekarz * gLekarz = NULL;
 	Pacjent * gPacjent = NULL;
-	string fin_path = "D:\wizyty.txt";
-	string flekarz_path = "D:\lekarz.txt";
-	string fpacjent_path = "D:\pacjent.txt";
+	string fin_path = "undefined";
+	string flekarz_path = "undefined";
+	string fpacjent_path = "undefined";
+	string nazwisko_pacjenta = "undefined";
 	fstream fin;
-	fin.open(fin_path);
 
-	if (fin.good())
+	for (int i = 1; i < argc; i++)
 	{
-		string wiersz;
-		vector<string> wizyta_vec;
-
-		while (!fin.eof())
+		if (!strcmp(argv[i], "-fin"))
 		{
-			getline(fin, wiersz);
-			wizyta_vec = pobierz(wiersz);
-			unsigned long data = 0;
-			string l_nazwisko;
-			string p_nazwisko;
-
-			data = stoul(wizyta_vec[0]);
-
-			p_nazwisko = wizyta_vec[1];
-			l_nazwisko = wizyta_vec[2];
-
-			if (!lekarzIstnieje(gLekarz, l_nazwisko))
+			fin_path = argv[i + 1];
+			fin.open(fin_path);
+			if (fin.good())
 			{
-				dodajLekarza(gLekarz, l_nazwisko);
-			}
+				string wiersz;
+				vector<string> wizyta_vec;
 
-			if (!pacjentIstnieje(gPacjent, p_nazwisko))
-			{
-				dodajPacjenta(gPacjent, p_nazwisko);
-			}
-
-			dodajWizyte(gLekarz, gPacjent, l_nazwisko, data, p_nazwisko);
-		}
-	}
-	fin.close();
-
-	//
-	wypisz(gLekarz);
-	cout << endl;
-	//zamienWizyte(gLekarz, gPacjent , "pKowalski", 2018101101);
-	//usunLekarza(gLekarz, gPacjent, "lFrankowski");
-	liczSrednie(gLekarz);
-	wypisz(gLekarz);
-	//
-	
-	ofstream fin_updated(fin_path);
-	if (fin_updated.good()) 
-	{
-		int iterator = 0;
-		Lekarz * pL = gLekarz;
-		while (pL)
-		{
-			Wizyta * pW = pL->head_wizyty;
-			while (pW)
-			{
-				if (iterator != 0) 
+				while (!fin.eof())
 				{
-					fin_updated << endl;
+					getline(fin, wiersz);
+					wizyta_vec = pobierz(wiersz);
+					unsigned long data = 0;
+					string l_nazwisko;
+					string p_nazwisko;
+
+					data = stoul(wizyta_vec[0]);
+
+					p_nazwisko = wizyta_vec[1];
+					l_nazwisko = wizyta_vec[2];
+
+					if (!lekarzIstnieje(gLekarz, l_nazwisko))
+					{
+						dodajLekarza(gLekarz, l_nazwisko);
+					}
+
+					if (!pacjentIstnieje(gPacjent, p_nazwisko))
+					{
+						dodajPacjenta(gPacjent, p_nazwisko);
+					}
+
+					dodajWizyte(gLekarz, gPacjent, l_nazwisko, data, p_nazwisko);
 				}
-				fin_updated << pW->data_wizyty << ";" << pW->nazwisko_pacjenta << ";" << pL->nazwisko;
-				++iterator;
-				pW = pW->wsk_nastepna_wizyta;
 			}
-			pL = pL->wsk_nastepny_lekarz;
-		}
-	}
-	fin_updated.close();
-
-	ofstream flekarz(flekarz_path);
-	if (flekarz.good()) 
-	{
-		Lekarz * pL = gLekarz;
-		while (pL)
-		{
-			flekarz << "Srednia wizyt dla lekarza " << pL->nazwisko << ": " << pL->œrednia << endl;
-			pL = pL->wsk_nastepny_lekarz;
-		}
-	}
-	flekarz.close();
-
-	ofstream fpacjent(fpacjent_path);
-	if (fpacjent.good())
-	{
-		Lekarz * pL = gLekarz;
-		while (pL)
-		{
-			Wizyta * pW = pL->head_wizyty;
-			while (pW)
+			else
 			{
-				fin_updated << pW->data_wizyty << ";" << pW->nazwisko_pacjenta << endl;
-				pW = pW->wsk_nastepna_wizyta;
+				cout << "Nieprawidlowa nazwa / sciezka pliku wejsciowego" << endl;
+				return -1;
 			}
-			pL = pL->wsk_nastepny_lekarz;
+			fin.close();
+			break;
 		}
 	}
-	fpacjent.close();
+	
+	for (int i = 1; i < argc; i++)
+	{
+		if (!strcmp(argv[i], "-zamieñ"))
+		{
+			zamienWizyte(gLekarz, gPacjent , argv[i+1], stoul(argv[i+2]));
+			i += 2;
+		}
+		else if (!strcmp(argv[i], "-usuñ"))
+		{
+			int iloscLekarzy = 0;
+			Lekarz * pLekarz = gLekarz;
+			while(pLekarz)
+			{
+				iloscLekarzy++;
+				pLekarz = pLekarz->wsk_nastepny_lekarz;
+			}
+			if (iloscLekarzy > 1) 
+			{
+				usunLekarza(gLekarz, gPacjent, argv[i + 1]);
+			}
+			i++;
+		}
+		else if (!strcmp(argv[i], "-flekarz"))
+		{
+			flekarz_path = argv[i+1];
+			i++;
+		}
+		else if (!strcmp(argv[i], "-fpacjent"))
+		{
+			fpacjent_path = argv[i + 1];
+			nazwisko_pacjenta = argv[i + 2];
+			i+=2;
+		}
+		else if (!strcmp(argv[i], "-fin"))
+		{
+			i++;
+		}
+		else
+		{
+			cout << "Niepoprawnie wprowadzony argument nr " << i << endl;
+		}
+	}
+
+	liczSrednie(gLekarz);
+
+	if (fin_path != "undefined")
+	{
+		ofstream fin_updated(fin_path);
+		if (fin_updated.good())
+		{
+			int iterator = 0;
+			Lekarz * pL = gLekarz;
+			while (pL)
+			{
+				Wizyta * pW = pL->head_wizyty;
+				while (pW)
+				{
+					if (iterator != 0)
+					{
+						fin_updated << endl;
+					}
+					fin_updated << pW->data_wizyty << ";" << pW->nazwisko_pacjenta << ";" << pL->nazwisko;
+					++iterator;
+					pW = pW->wsk_nastepna_wizyta;
+				}
+				pL = pL->wsk_nastepny_lekarz;
+			}
+		}
+		else
+		{
+			cout << "Blad otwarcia pliku lub nieprawidlowa nazwa/sciezka pliku wyjsciowego" << endl;
+			return -1;
+		}
+		fin_updated.close();
+	}
+	else
+	{
+		cout << "Blad pliku wyjsciowego - nie podano nazwy/sciezki" << endl;
+	}
+	
+	if (flekarz_path != "undefined")
+	{
+		ofstream flekarz(flekarz_path);
+		if (flekarz.good())
+		{
+			Lekarz * pL = gLekarz;
+			while (pL)
+			{
+				flekarz << "Srednia wizyt dla lekarza " << pL->nazwisko << ": " << pL->œrednia << endl;
+				pL = pL->wsk_nastepny_lekarz;
+			}
+		}
+		else
+		{
+			cout << "Blad otwarcia pliku lub nieprawidlowa nazwa/sciezka pliku flekarz" << endl;
+			return -1;
+		}
+		flekarz.close();
+
+	}
+	else
+	{
+		cout << "Blad pliku flekarz - nie podano nazwy/sciezki" << endl;
+	}
+
+	if (fpacjent_path != "undefined")
+	{
+		ofstream fpacjent(fpacjent_path);
+		if (fpacjent.good())
+		{
+			Lekarz * pL = gLekarz;
+			while (pL)
+			{
+				Wizyta * pW = pL->head_wizyty;
+				while (pW)
+				{
+					if (pW->nazwisko_pacjenta == nazwisko_pacjenta)
+					{
+						fpacjent << pW->data_wizyty << ";" << "Pacjent: "<< pW->nazwisko_pacjenta <<" Lekarz: "<<pL->nazwisko<< endl;
+					}
+					pW = pW->wsk_nastepna_wizyta;
+				}
+				pL = pL->wsk_nastepny_lekarz;
+			}
+		}
+		else
+		{
+			cout << "Blad otwarcia pliku lub nieprawidlowa nazwa/sciezka pliku fpacjent" << endl;
+			return -1;
+		}
+		fpacjent.close();
+	}
+	else
+	{
+		cout << "Blad pliku fpacjent - nie podano nazwy/sciezki" << endl;
+	}
 
 	Pacjent * pacjent_tmp = NULL;
 	while (gPacjent) 
@@ -149,6 +239,9 @@ int main(int argc, char * argv[])
 		delete wizyta_tmp;
 	}
 	delete lekarz_tmp;
+
+	cout << "Wykonano zadane operacje. " << endl;
+	cout << "Zwolniono pamiec. " << endl;
 
 	system("pause");
 

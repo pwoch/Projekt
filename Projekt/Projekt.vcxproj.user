@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerCommandArguments>-fin D:\gabinet_dentystyczny\wizyty.txt -zamień pKowalski 2018101102 -usuń lNowakowski -fpacjent D:\gabinet_dentystyczny\wizyty_Kowalskiego.txt pKowalski -flekarz D:\gabinet_dentystyczny\lekarze.txt</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
 </Project>

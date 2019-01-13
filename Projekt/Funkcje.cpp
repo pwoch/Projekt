@@ -193,6 +193,10 @@ void usunListeWizyt(Wizyta * & head)
 
 void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned long data)
 {
+	if (!pacjentIstnieje(gPacjent, pacjent))
+	{
+		cout << "Pacjent " << pacjent << " nie istnieje" << endl;
+	}
 	Lekarz * pL = gLekarz;
 	
 	bool wizyta_przepisana = false;
@@ -242,6 +246,10 @@ void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned 
 
 void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 {
+	if (!lekarzIstnieje(gLekarz, lekarz)) 
+	{
+		cout << "Podany lekarz: " << lekarz << " nie istnieje" << endl;
+	}
 	Lekarz * pL = gLekarz;
 	Lekarz * usuwanyL = NULL;
 	while (pL)
@@ -249,7 +257,7 @@ void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 		if (pL->nazwisko == lekarz)
 		{
 			usuwanyL = pL;
-			break; //
+			break; 
 		}
 		pL = pL->wsk_nastepny_lekarz;
 	}
@@ -306,7 +314,6 @@ void usunLekarza(Lekarz *& gLekarz, Pacjent * gPacjent, string lekarz)
 	przeniesWizytyLekarza(gLekarz, gPacjent, lekarz);
 	usunListeWizyt(gLekarz->head_wizyty);
 	usunKonkretnegoLekarza(gLekarz, lekarz);
-
 }
 
 void liczSrednie(Lekarz * gLekarz) 
