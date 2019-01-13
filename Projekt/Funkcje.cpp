@@ -89,7 +89,26 @@ void dodajWizyte(Lekarz * gLekarz, Pacjent * gPacjent, string l_nazwisko,unsigne
 	{
 		if (l_nazwisko == gLekarz->nazwisko)
 		{
-			gLekarz->head_wizyty = new Wizyta{data_wizyty,p_nazwisko,tmpPacjent,gLekarz->head_wizyty};
+			bool dataZajeta = false;
+			Wizyta * pWizyta = gLekarz->head_wizyty;
+			while (pWizyta)
+			{
+				if (pWizyta->data_wizyty == data_wizyty)
+				{
+					dataZajeta = true;
+					break;
+				}
+				pWizyta = pWizyta->wsk_nastepna_wizyta;
+			}
+			string data_string = to_string(data_wizyty);
+			int dziesiatki = (int)(data_string[8] - '0');
+			int jednosci = (int)(data_string[9] - '0');
+			int id_wizyty = 10 * dziesiatki + jednosci;
+
+			if (id_wizyty > 0 && id_wizyty <= 10 && !dataZajeta)
+			{
+				gLekarz->head_wizyty = new Wizyta{ data_wizyty,p_nazwisko,tmpPacjent,gLekarz->head_wizyty };
+			}
 			return;
 		}
 		gLekarz = gLekarz->wsk_nastepny_lekarz;
