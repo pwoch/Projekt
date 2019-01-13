@@ -1,3 +1,5 @@
+/** @file */
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -238,7 +240,7 @@ void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned 
 	}
 }
 
-void przeniesLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
+void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 {
 	Lekarz * pL = gLekarz;
 	Lekarz * usuwanyL = NULL;
@@ -301,7 +303,7 @@ void przeniesLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 
 void usunLekarza(Lekarz *& gLekarz, Pacjent * gPacjent, string lekarz)
 {
-	przeniesLekarza(gLekarz, gPacjent, lekarz);
+	przeniesWizytyLekarza(gLekarz, gPacjent, lekarz);
 	usunListeWizyt(gLekarz->head_wizyty);
 	usunKonkretnegoLekarza(gLekarz, lekarz);
 
