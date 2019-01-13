@@ -1,0 +1,203 @@
+\hypertarget{_nag_xC5_x82_xC3_xB3wek_8h}{}\section{C\+:/\+Users/\+Paweł W/source/repos/\+Projekt/\+Projekt/\+Nagłówek.h File Reference}
+\label{_nag_xC5_x82_xC3_xB3wek_8h}\index{C:/Users/Paweł W/source/repos/Projekt/Projekt/Nagłówek.h@{C:/Users/Paweł W/source/repos/Projekt/Projekt/Nagłówek.h}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_pacjent}{Pacjent}}
+\item 
+struct \mbox{\hyperlink{struct_wizyta}{Wizyta}}
+\item 
+struct \mbox{\hyperlink{struct_lekarz}{Lekarz}}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{_nag_xC5_x82_xC3_xB3wek_8h_abfd810a2a7e4aef67421ec09a89570a1}{pobierz}} (string input)
+\item 
+bool \mbox{\hyperlink{_nag_xC5_x82_xC3_xB3wek_8h_a723f4d88f040040b8bc3606f97dabf7f}{lekarz\+Istnieje}} (\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$g\+Lekarz, string l\+\_\+nazwisko)
+\item 
+void \mbox{\hyperlink{_nag_xC5_x82_xC3_xB3wek_8h_a46d1c28f0deee030735cd08021bee7c8}{dodaj\+Lekarza}} (\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$\&g\+Lekarz, string l\+\_\+nazwisko)
+\item 
+bool \mbox{\hyperlink{_nag_xC5_x82_xC3_xB3wek_8h_a532e3c266c72a097b762a8eeff10559d}{pacjent\+Istnieje}} (\mbox{\hyperlink{struct_pacjent}{Pacjent}} $\ast$g\+Pacjent, string p\+\_\+nazwisko)
+\item 
+void \mbox{\hyperlink{_nag_xC5_x82_xC3_xB3wek_8h_a99b918f85738b2d1d53b9e937ef12fa6}{dodaj\+Pacjenta}} (\mbox{\hyperlink{struct_pacjent}{Pacjent}} $\ast$\&g\+Pacjent, string p\+\_\+nazwisko)
+\item 
+void \mbox{\hyperlink{_nag_xC5_x82_xC3_xB3wek_8h_ae81b75031a64ebcd895f1ffe151314c3}{dodaj\+Wizyte}} (\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$g\+Lekarz, \mbox{\hyperlink{struct_pacjent}{Pacjent}} $\ast$g\+Pacjent, string l\+\_\+nazwisko, unsigned long data\+\_\+wizyty, string p\+\_\+nazwisko)
+\item 
+unsigned long \mbox{\hyperlink{_nag_xC5_x82_xC3_xB3wek_8h_af72f554b92814993c31cfe072c1b5276}{pobierz\+Czas}} ()
+\item 
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_a4de7ebfac90570585b989d57f29c946e}\label{_nag_xC5_x82_xC3_xB3wek_8h_a4de7ebfac90570585b989d57f29c946e}} 
+void {\bfseries wypisz} (\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$g\+Lekarz)
+\item 
+void \mbox{\hyperlink{_nag_xC5_x82_xC3_xB3wek_8h_a4a22aa5836c5816bf7858493b4dc5439}{usun\+Konkretna\+Wizyte}} (\mbox{\hyperlink{struct_wizyta}{Wizyta}} $\ast$\&head, string pacjent, unsigned long data)
+\item 
+void \mbox{\hyperlink{_nag_xC5_x82_xC3_xB3wek_8h_adada0489ac2baf8b2d1c8f6cf9f13d27}{usun\+Konkretnego\+Lekarza}} (\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$\&head, string lekarz)
+\item 
+void \mbox{\hyperlink{_nag_xC5_x82_xC3_xB3wek_8h_a80ef4d028617370725e9021271b7dbbd}{usun\+Liste\+Wizyt}} (\mbox{\hyperlink{struct_wizyta}{Wizyta}} $\ast$\&head)
+\item 
+void \mbox{\hyperlink{_nag_xC5_x82_xC3_xB3wek_8h_a9a426264a4d99b9cb54ef17613806f01}{zamien\+Wizyte}} (\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$g\+Lekarz, \mbox{\hyperlink{struct_pacjent}{Pacjent}} $\ast$g\+Pacjent, string pacjent, unsigned long data)
+\item 
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_ac7fe5ec61bffecee3845d74849f5dae6}\label{_nag_xC5_x82_xC3_xB3wek_8h_ac7fe5ec61bffecee3845d74849f5dae6}} 
+void {\bfseries przenies\+Wizyty\+Lekarza} (\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$g\+Lekarz, \mbox{\hyperlink{struct_pacjent}{Pacjent}} $\ast$g\+Pacjent, string lekarz)
+\item 
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_a636691a92a8cade9da7c020243d316d6}\label{_nag_xC5_x82_xC3_xB3wek_8h_a636691a92a8cade9da7c020243d316d6}} 
+void {\bfseries usun\+Lekarza} (\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$\&g\+Lekarz, \mbox{\hyperlink{struct_pacjent}{Pacjent}} $\ast$g\+Pacjent, string lekarz)
+\item 
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_a51105c26b32326d5d27756a69e0e7578}\label{_nag_xC5_x82_xC3_xB3wek_8h_a51105c26b32326d5d27756a69e0e7578}} 
+void {\bfseries licz\+Srednie} (\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$g\+Lekarz)
+\item 
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_a0b03aa8ff48a0b24f8d26da68791e374}\label{_nag_xC5_x82_xC3_xB3wek_8h_a0b03aa8ff48a0b24f8d26da68791e374}} 
+int {\bfseries obetnij\+Do\+Roku} (unsigned long data)
+\item 
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_a3c5c6544b2d6c4383a96ef43e84961bd}\label{_nag_xC5_x82_xC3_xB3wek_8h_a3c5c6544b2d6c4383a96ef43e84961bd}} 
+int {\bfseries obetnij\+Do\+Miesiaca} (unsigned long data)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_a46d1c28f0deee030735cd08021bee7c8}\label{_nag_xC5_x82_xC3_xB3wek_8h_a46d1c28f0deee030735cd08021bee7c8}} 
+\index{Nagłówek.h@{Nagłówek.h}!dodajLekarza@{dodajLekarza}}
+\index{dodajLekarza@{dodajLekarza}!Nagłówek.h@{Nagłówek.h}}
+\subsubsection{\texorpdfstring{dodajLekarza()}{dodajLekarza()}}
+{\footnotesize\ttfamily void dodaj\+Lekarza (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$\&}]{g\+Lekarz,  }\item[{string}]{l\+\_\+nazwisko }\end{DoxyParamCaption})}
+
+Dodawanie lekarza do listy 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em g\+Lekarz} & wskaznik na pierwszy element listy lekarzy, je�li element zostanie dododany do listy, wska�nik b�dzie zmodyfikowany \\
+\hline
+ & {\em l\+\_\+nazwisko} & nazwisko lekarza, kt�ry ma by� dodany do listy \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_a99b918f85738b2d1d53b9e937ef12fa6}\label{_nag_xC5_x82_xC3_xB3wek_8h_a99b918f85738b2d1d53b9e937ef12fa6}} 
+\index{Nagłówek.h@{Nagłówek.h}!dodajPacjenta@{dodajPacjenta}}
+\index{dodajPacjenta@{dodajPacjenta}!Nagłówek.h@{Nagłówek.h}}
+\subsubsection{\texorpdfstring{dodajPacjenta()}{dodajPacjenta()}}
+{\footnotesize\ttfamily void dodaj\+Pacjenta (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_pacjent}{Pacjent}} $\ast$\&}]{g\+Pacjent,  }\item[{string}]{p\+\_\+nazwisko }\end{DoxyParamCaption})}
+
+Dodawanie pacjenta do listy 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em g\+Pacjent} & wskaznik na pierwszy element listy pacjent�w, je�li element zostanie dododany do listy, wska�nik b�dzie zmodyfikowany \\
+\hline
+ & {\em p\+\_\+nazwisko} & nazwisko pacjenta, kt�ry ma by� dodany do listy \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_ae81b75031a64ebcd895f1ffe151314c3}\label{_nag_xC5_x82_xC3_xB3wek_8h_ae81b75031a64ebcd895f1ffe151314c3}} 
+\index{Nagłówek.h@{Nagłówek.h}!dodajWizyte@{dodajWizyte}}
+\index{dodajWizyte@{dodajWizyte}!Nagłówek.h@{Nagłówek.h}}
+\subsubsection{\texorpdfstring{dodajWizyte()}{dodajWizyte()}}
+{\footnotesize\ttfamily void dodaj\+Wizyte (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$}]{g\+Lekarz,  }\item[{\mbox{\hyperlink{struct_pacjent}{Pacjent}} $\ast$}]{g\+Pacjent,  }\item[{string}]{l\+\_\+nazwisko,  }\item[{unsigned long}]{data\+\_\+wizyty,  }\item[{string}]{p\+\_\+nazwisko }\end{DoxyParamCaption})}
+
+Dodawanie wizyty do listy 
+\begin{DoxyParams}{Parameters}
+{\em g\+Lekarz} & wska�nik na pierwszy element listy lekarzy \\
+\hline
+{\em g\+Pacjent} & wskaznik na pierwszy element listy pacjent�w \\
+\hline
+{\em p\+\_\+nazwisko} & nazwisko lekarza, kt�ry ma mie� dodan� wizyt� \\
+\hline
+{\em data\+\_\+wizyty} & data dodawanej wizyty \\
+\hline
+{\em p\+\_\+nazwisko} & nazwisko pacjenta, kt�ry ma mie� dodan� wizyt� \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_a723f4d88f040040b8bc3606f97dabf7f}\label{_nag_xC5_x82_xC3_xB3wek_8h_a723f4d88f040040b8bc3606f97dabf7f}} 
+\index{Nagłówek.h@{Nagłówek.h}!lekarzIstnieje@{lekarzIstnieje}}
+\index{lekarzIstnieje@{lekarzIstnieje}!Nagłówek.h@{Nagłówek.h}}
+\subsubsection{\texorpdfstring{lekarzIstnieje()}{lekarzIstnieje()}}
+{\footnotesize\ttfamily bool lekarz\+Istnieje (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$}]{g\+Lekarz,  }\item[{string}]{l\+\_\+nazwisko }\end{DoxyParamCaption})}
+
+Sprawdzanie czy instnieje ju� taki lekarz 
+\begin{DoxyParams}{Parameters}
+{\em g\+Lekarz} & wska�nik na pierwszy element listy lekarzy \\
+\hline
+{\em l\+\_\+nazwisko} & nazwisko lekarza do sprawdzenia \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_a532e3c266c72a097b762a8eeff10559d}\label{_nag_xC5_x82_xC3_xB3wek_8h_a532e3c266c72a097b762a8eeff10559d}} 
+\index{Nagłówek.h@{Nagłówek.h}!pacjentIstnieje@{pacjentIstnieje}}
+\index{pacjentIstnieje@{pacjentIstnieje}!Nagłówek.h@{Nagłówek.h}}
+\subsubsection{\texorpdfstring{pacjentIstnieje()}{pacjentIstnieje()}}
+{\footnotesize\ttfamily bool pacjent\+Istnieje (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_pacjent}{Pacjent}} $\ast$}]{g\+Pacjent,  }\item[{string}]{p\+\_\+nazwisko }\end{DoxyParamCaption})}
+
+Sprawdzanie czy instnieje ju� taki pacjent 
+\begin{DoxyParams}{Parameters}
+{\em g\+Pacjent} & wska�nik na pierwszy element listy pacjent�w \\
+\hline
+{\em p\+\_\+nazwisko} & nazwisko pacjenta do sprawdzenia \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_abfd810a2a7e4aef67421ec09a89570a1}\label{_nag_xC5_x82_xC3_xB3wek_8h_abfd810a2a7e4aef67421ec09a89570a1}} 
+\index{Nagłówek.h@{Nagłówek.h}!pobierz@{pobierz}}
+\index{pobierz@{pobierz}!Nagłówek.h@{Nagłówek.h}}
+\subsubsection{\texorpdfstring{pobierz()}{pobierz()}}
+{\footnotesize\ttfamily vector$<$string$>$ pobierz (\begin{DoxyParamCaption}\item[{string}]{input }\end{DoxyParamCaption})}
+
+Pobieranie i rozdzielenie linii tekstu na daty, nazwiska pacjenta, oraz nazwiska lekarza 
+\begin{DoxyParams}{Parameters}
+{\em input} & linia tekstu do wczytania aby rozdzielic go na dat�, nazwisko pacjenta oraz nazwisko lekarza \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_af72f554b92814993c31cfe072c1b5276}\label{_nag_xC5_x82_xC3_xB3wek_8h_af72f554b92814993c31cfe072c1b5276}} 
+\index{Nagłówek.h@{Nagłówek.h}!pobierzCzas@{pobierzCzas}}
+\index{pobierzCzas@{pobierzCzas}!Nagłówek.h@{Nagłówek.h}}
+\subsubsection{\texorpdfstring{pobierzCzas()}{pobierzCzas()}}
+{\footnotesize\ttfamily unsigned long pobierz\+Czas (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Pobieranie aktualnej daty \mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_a4a22aa5836c5816bf7858493b4dc5439}\label{_nag_xC5_x82_xC3_xB3wek_8h_a4a22aa5836c5816bf7858493b4dc5439}} 
+\index{Nagłówek.h@{Nagłówek.h}!usunKonkretnaWizyte@{usunKonkretnaWizyte}}
+\index{usunKonkretnaWizyte@{usunKonkretnaWizyte}!Nagłówek.h@{Nagłówek.h}}
+\subsubsection{\texorpdfstring{usunKonkretnaWizyte()}{usunKonkretnaWizyte()}}
+{\footnotesize\ttfamily void usun\+Konkretna\+Wizyte (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_wizyta}{Wizyta}} $\ast$\&}]{head,  }\item[{string}]{pacjent,  }\item[{unsigned long}]{data }\end{DoxyParamCaption})}
+
+Usuwanie konkretnej wiyty (wed�ug podanego nazwiska pacjenta i daty wuizyty) 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em head} & wska�nik na pierwszy element listy wizyt \\
+\hline
+ & {\em pacjent} & nazwisko pacjenta kt�rego wizyta ma by� usuni�ta \\
+\hline
+ & {\em data} & data wizyty do usuni�cia \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_adada0489ac2baf8b2d1c8f6cf9f13d27}\label{_nag_xC5_x82_xC3_xB3wek_8h_adada0489ac2baf8b2d1c8f6cf9f13d27}} 
+\index{Nagłówek.h@{Nagłówek.h}!usunKonkretnegoLekarza@{usunKonkretnegoLekarza}}
+\index{usunKonkretnegoLekarza@{usunKonkretnegoLekarza}!Nagłówek.h@{Nagłówek.h}}
+\subsubsection{\texorpdfstring{usunKonkretnegoLekarza()}{usunKonkretnegoLekarza()}}
+{\footnotesize\ttfamily void usun\+Konkretnego\+Lekarza (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$\&}]{head,  }\item[{string}]{lekarz }\end{DoxyParamCaption})}
+
+Usuwanie konkretnego lekarza (wed�ug podanego nazwiska lekarza) 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em head} & wska�nik na pierwszy element listy lekarzy \\
+\hline
+ & {\em lekarz} & nazwisko lekarza kt�ry ma by� usuni�ty \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_a80ef4d028617370725e9021271b7dbbd}\label{_nag_xC5_x82_xC3_xB3wek_8h_a80ef4d028617370725e9021271b7dbbd}} 
+\index{Nagłówek.h@{Nagłówek.h}!usunListeWizyt@{usunListeWizyt}}
+\index{usunListeWizyt@{usunListeWizyt}!Nagłówek.h@{Nagłówek.h}}
+\subsubsection{\texorpdfstring{usunListeWizyt()}{usunListeWizyt()}}
+{\footnotesize\ttfamily void usun\+Liste\+Wizyt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_wizyta}{Wizyta}} $\ast$\&}]{head }\end{DoxyParamCaption})}
+
+Usuwanie listy wizyt 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em head} & wskaznik na pierwszy element listy wizyt do usuni�cia \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_nag_xC5_x82_xC3_xB3wek_8h_a9a426264a4d99b9cb54ef17613806f01}\label{_nag_xC5_x82_xC3_xB3wek_8h_a9a426264a4d99b9cb54ef17613806f01}} 
+\index{Nagłówek.h@{Nagłówek.h}!zamienWizyte@{zamienWizyte}}
+\index{zamienWizyte@{zamienWizyte}!Nagłówek.h@{Nagłówek.h}}
+\subsubsection{\texorpdfstring{zamienWizyte()}{zamienWizyte()}}
+{\footnotesize\ttfamily void zamien\+Wizyte (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_lekarz}{Lekarz}} $\ast$}]{g\+Lekarz,  }\item[{\mbox{\hyperlink{struct_pacjent}{Pacjent}} $\ast$}]{g\+Pacjent,  }\item[{string}]{pacjent,  }\item[{unsigned long}]{data }\end{DoxyParamCaption})}
+
+Zanienianie wizyty pacjenta (usuwanie podanej wizyty i znalezienie najblizszego wolnego terminu oraz utworzenie nowej wizyty w tym terminie) 
+\begin{DoxyParams}{Parameters}
+{\em g\+Lekarz} & g\+Lekarz wska�nik na pierwszy element listy lekarzy \\
+\hline
+{\em g\+Pacjent} & wskaznik na pierwszy element listy pacjent�w \\
+\hline
+{\em pacjent} & nazwisko pacjenta kt�rego wizyta ma by� zamieniona \\
+\hline
+{\em data} & data wizyty do zamienienia \\
+\hline
+\end{DoxyParams}

@@ -333,10 +333,10 @@ void liczSrednie(Lekarz * gLekarz)
 			gWizyta = gWizyta->wsk_nastepna_wizyta;
 		}
 
-		int rok_min = obetnijDoRoku(min);
-		int rok_max = obetnijDoRoku(max);
-		int miesiac_min = obetnijDoMiesiaca(min);
-		int miesiac_max = obetnijDoMiesiaca(max);
+		int rok_min = pobierzRok(min);
+		int rok_max = pobierzRok(max);
+		int miesiac_min = pobierzMiesiac(min);
+		int miesiac_max = pobierzMiesiac(max);
 		double srednia = 0;
 		int mianownik = (miesiac_max - miesiac_min + 1 + (rok_max - rok_min) * 12);
 		if (mianownik != 0) 
@@ -350,7 +350,7 @@ void liczSrednie(Lekarz * gLekarz)
 	}
 }
 
-int obetnijDoRoku(unsigned long data) 
+int pobierzRok(unsigned long data) 
 {
 	string tmp_data = to_string(data);
 	string newData = to_string(tmp_data[0]) + to_string(tmp_data[1]) + to_string(tmp_data[2]) + to_string(tmp_data[3]);
@@ -358,7 +358,7 @@ int obetnijDoRoku(unsigned long data)
 	return year;
 }
 
-int obetnijDoMiesiaca(unsigned long data) 
+int pobierzMiesiac(unsigned long data) 
 {
 	string tmp_data = to_string(data);
 	string newData = to_string(tmp_data[4]) + to_string(tmp_data[5]);

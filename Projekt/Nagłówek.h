@@ -84,20 +84,20 @@ unsigned long pobierzCzas();
 void wypisz(Lekarz * gLekarz);
 
 /** Usuwanie konkretnej wiyty (wed³ug podanego nazwiska pacjenta i daty wuizyty)
-@param[in, out] head wskaŸnik na pierwszy element listy wizyt
+@param[in, out] head wskaŸnik na pierwszy element listy wizyt, jeœli element zostanie usuniety z listy, wskaŸnik bêdzie zmodyfikowany
 @param pacjent nazwisko pacjenta którego wizyta ma byæ usuniêta
 @param data data wizyty do usuniêcia
 */
 void usunKonkretnaWizyte(Wizyta * & head, string pacjent, unsigned long data);
 
 /** Usuwanie konkretnego lekarza (wed³ug podanego nazwiska lekarza)
-@param[in, out] head wskaŸnik na pierwszy element listy lekarzy
+@param[in, out] head wskaŸnik na pierwszy element listy lekarzy, jeœli element zostanie usuniety z listy, wskaŸnik bêdzie zmodyfikowany
 @param lekarz nazwisko lekarza który ma byæ usuniêty
 */
 void usunKonkretnegoLekarza(Lekarz *& head, string lekarz);
 
 /** Usuwanie listy wizyt
-@param[in, out] head wskaznik na pierwszy element listy wizyt do usuniêcia
+@param[in, out] head wskaznik na pierwszy element listy wizyt do usuniêcia, jeœli element zostanie usuniety z listy, wskaŸnik bêdzie zmodyfikowany
 */
 void usunListeWizyt(Wizyta * & head);
 
@@ -109,15 +109,34 @@ void usunListeWizyt(Wizyta * & head);
 */
 void zamienWizyte(Lekarz * gLekarz, Pacjent * gPacjent, string pacjent, unsigned long data);
 
+/** Przenoszenie wizyt lekarza (równomierne przeniesienie wizyt lekarza na innych lekarzy)
+@param gLekarz gLekarz wskaŸnik na pierwszy element listy lekarzy
+@param gPacjent wskaznik na pierwszy element listy pacjentów
+@param lekarz nazwisko lekarza krtórego wizyty maj¹ byæ przeniesione
+*/
 void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz);
 
+/** Usuwanie lekarza i rozdziela jego wizyty równomiernie na innych lekarzy
+@param[in, out] gLekarz wskaznik na pierwszy element listy lekarzy, jeœli element zostanie usuniety z listy, wskaŸnik bêdzie zmodyfikowany
+@param gPacjent wskaznik na pierwszy element listy pacjentów
+@param lekarz nazwisko lekarza krtórego wizyty maj¹ byæ przeniesione
+*/ 
 void usunLekarza(Lekarz *& gLekarz, Pacjent * gPacjent, string lekarz);
 
+/** Liczenie œredniej liczby przyjêæ lekarza na miesi¹c
+@param gLekarz wskaŸnik na pierwszy element listy lekarzy
+*/
 void liczSrednie(Lekarz * gLekarz);
 
-int obetnijDoRoku(unsigned long data);
+/** Pobieranie roku z pe³nej daty
+@param data pe³na data
+*/
+int pobierzRok(unsigned long data);
 
-int obetnijDoMiesiaca(unsigned long data);
+/** Pobieranie miesiaca z pe³nej daty
+@param data pe³na data
+*/
+int pobierzMiesiac(unsigned long data);
 
 #pragma endregion
 

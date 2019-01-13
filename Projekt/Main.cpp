@@ -150,7 +150,6 @@ int main(int argc, char * argv[])
 	}
 	delete lekarz_tmp;
 
-	//TODO: Dokumentacja doxygen
 	system("pause");
 
 	return 0;
