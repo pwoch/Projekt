@@ -320,9 +320,9 @@ void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 				}
 				pwiz = pwiz->wsk_nastepna_wizyta;
 			}
-			pL = gLekarz->wsk_nastepny_lekarz;
 			pW->data_wizyty = pW->data_wizyty + 1;
 		}
+		pL = gLekarz->wsk_nastepny_lekarz;
 		pW = pW->wsk_nastepna_wizyta;
 	}
 }
