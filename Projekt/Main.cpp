@@ -68,6 +68,7 @@ int main(int argc, char * argv[])
 			else
 			{
 				cout << "Nieprawidlowa nazwa / sciezka pliku wejsciowego" << endl;
+				system("pause");
 				return -1;
 			}
 			fin.close();

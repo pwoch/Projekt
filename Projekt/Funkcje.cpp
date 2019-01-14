@@ -215,6 +215,7 @@ void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned 
 	if (!pacjentIstnieje(gPacjent, pacjent))
 	{
 		cout << "Pacjent " << pacjent << " nie istnieje" << endl;
+		return;
 	}
 	Lekarz * pL = gLekarz;
 	
