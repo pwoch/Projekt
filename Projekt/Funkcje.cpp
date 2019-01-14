@@ -237,7 +237,7 @@ void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned 
 			bool data_wystapila = false;
 			bool koniec_wizyt = false;
 			Wizyta * pW = pL->head_wizyty;
-			while (pW)
+			while (pW)						//petla nieskonczona
 			{
 				if (pW->data_wizyty == data)
 				{
@@ -253,7 +253,8 @@ void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned 
 					wizyta_przepisana = true;
 					return;
 				}
-				pW = pL->head_wizyty->wsk_nastepna_wizyta;
+				//pW = pL->head_wizyty->wsk_nastepna_wizyta;
+				pW = pW->wsk_nastepna_wizyta;
 			}
 			
 			pL = pL->wsk_nastepny_lekarz;
@@ -268,6 +269,7 @@ void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 	if (!lekarzIstnieje(gLekarz, lekarz)) 
 	{
 		cout << "Podany lekarz: " << lekarz << " nie istnieje" << endl;
+		return;
 	}
 	Lekarz * pL = gLekarz;
 	Lekarz * usuwanyL = NULL;
@@ -290,10 +292,6 @@ void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 		}
 		if(pL->nazwisko==lekarz)
 		{
-			//if(pL->wsk_nastepny_lekarz)
-			//{
-			//	pL = pL->wsk_nastepny_lekarz;
-			//} //TODO
 			pL = pL->wsk_nastepny_lekarz;
 		}
 		
@@ -317,11 +315,11 @@ void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 				{
 					dodajWizyte(gLekarz, gPacjent, pL->nazwisko, pW->data_wizyty, pW->nazwisko_pacjenta);
 					wizyta_przepisana = true;
-					break;//return;
+					break;
 				}
 				pwiz = pwiz->wsk_nastepna_wizyta;
 			}
-			pL = gLekarz->wsk_nastepny_lekarz; //bylo samo glekarz
+			pL = gLekarz->wsk_nastepny_lekarz;
 			pW->data_wizyty = pW->data_wizyty + 1;
 		}
 		pW = pW->wsk_nastepna_wizyta;
@@ -359,17 +357,21 @@ void liczSrednie(Lekarz * gLekarz)
 			gWizyta = gWizyta->wsk_nastepna_wizyta;
 		}
 
-		int rok_min = pobierzRok(min);
-		int rok_max = pobierzRok(max);
-		int miesiac_min = pobierzMiesiac(min);
-		int miesiac_max = pobierzMiesiac(max);
 		double srednia = 0;
-		int mianownik = (miesiac_max - miesiac_min + 1 + (rok_max - rok_min) * 12);
-		if (mianownik != 0) 
+
+		if (min != ULONG_MAX && max != 0)
 		{
-			srednia = iterator / mianownik;
+			int rok_min = pobierzRok(min);
+			int rok_max = pobierzRok(max);
+			int miesiac_min = pobierzMiesiac(min);
+			int miesiac_max = pobierzMiesiac(max);
+
+			int mianownik = (miesiac_max - miesiac_min + 1 + (rok_max - rok_min) * 12);
+			if (mianownik != 0)
+			{
+				srednia = iterator / mianownik;
+			}
 		}
-		
 		
 		gLekarz->œrednia = srednia;
 		gLekarz = gLekarz->wsk_nastepny_lekarz;

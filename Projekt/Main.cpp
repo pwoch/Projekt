@@ -18,8 +18,6 @@ int main(int argc, char * argv[])
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	//TODO: sprawdziæ usuwanie lekarza który nie istnieje i przepisanie wizyty która nie istnieje
-
 
 	vector<unsigned long> daty_vec;
 	Lekarz * gLekarz = NULL;
