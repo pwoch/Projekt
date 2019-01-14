@@ -67,12 +67,16 @@ int main(int argc, char * argv[])
 			}
 			else
 			{
-				cout << "Nieprawidlowa nazwa / sciezka pliku wejsciowego" << endl;
-				system("pause");
+				cout << "B³¹d otwarcia pliku" << endl;
 				return -1;
 			}
 			fin.close();
 			break;
+		}
+		else
+		{
+			cout << "Nieprawidlowa nazwa / sciezka pliku wejsciowego" << endl;
+			return -1;
 		}
 	}
 	
