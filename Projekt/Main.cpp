@@ -96,6 +96,10 @@ int main(int argc, char * argv[])
 			{
 				usunLekarza(gLekarz, gPacjent, argv[i + 1]);
 			}
+			else
+			{
+				cout << "Nie mozna usunac lekarza, poniewaz jest jedyny i nie mozna przepisac jego wizyt" << endl;
+			}
 			i++;
 		}
 		else if (!strcmp(argv[i], "-flekarz"))

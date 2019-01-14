@@ -200,8 +200,20 @@ void usunKonkretnegoLekarza(Lekarz *& head, string lekarz)
 	
 }
 
-void usunListeWizyt(Wizyta * & head)
+void usunListeWizyt(Lekarz * gLekarz, string lekarz)
 {
+	Lekarz * pL = gLekarz;
+	Lekarz * usuwanyL = NULL;
+	while (pL)
+	{
+		if (pL->nazwisko == lekarz)
+		{
+			usuwanyL = pL;
+			break;
+		}
+		pL = pL->wsk_nastepny_lekarz;
+	}
+	Wizyta * & head = pL->head_wizyty;
 	while (head)
 	{
 		Wizyta * p = head->wsk_nastepna_wizyta;
@@ -285,17 +297,19 @@ void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 	}
 	pL = gLekarz;
 	Wizyta * pW = usuwanyL->head_wizyty;
-	while (pW)
+	while (pW)		//nie rozdziela równomiernie
 	{
-		if (pL->wsk_nastepny_lekarz==NULL)
-		{
-			pL = gLekarz;
-		}
 		if(pL->nazwisko==lekarz)
 		{
-			pL = pL->wsk_nastepny_lekarz;
+			if (pL->wsk_nastepny_lekarz == NULL)
+			{
+				pL = gLekarz;
+			}
+			else
+			{
+				pL = pL->wsk_nastepny_lekarz;
+			}
 		}
-		
 		bool wizyta_przepisana = false;
 		while (wizyta_przepisana == false)
 		{
@@ -318,20 +332,37 @@ void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 					wizyta_przepisana = true;
 					break;
 				}
+				if(data_wystapila && koniec_wizyt)
+				{
+					pW->data_wizyty = pW->data_wizyty + 1;
+				}
 				pwiz = pwiz->wsk_nastepna_wizyta;
 			}
-			pW->data_wizyty = pW->data_wizyty + 1;
 		}
-		pL = gLekarz->wsk_nastepny_lekarz;
+		if (pL->wsk_nastepny_lekarz == NULL)
+		{
+			pL = gLekarz;
+		}
+		else
+		{
+			pL = pL->wsk_nastepny_lekarz;
+		}
 		pW = pW->wsk_nastepna_wizyta;
 	}
 }
 
 void usunLekarza(Lekarz *& gLekarz, Pacjent * gPacjent, string lekarz)
 {
-	przeniesWizytyLekarza(gLekarz, gPacjent, lekarz);
-	usunListeWizyt(gLekarz->head_wizyty);
-	usunKonkretnegoLekarza(gLekarz, lekarz);
+	if (lekarzIstnieje(gLekarz, lekarz))
+	{
+		przeniesWizytyLekarza(gLekarz, gPacjent, lekarz);
+		usunListeWizyt(gLekarz, lekarz);
+		usunKonkretnegoLekarza(gLekarz, lekarz);
+	}
+	else
+	{
+		cout << "Lekarz " << lekarz << " nie istnieje" <<endl;
+	}
 }
 
 void liczSrednie(Lekarz * gLekarz) 
