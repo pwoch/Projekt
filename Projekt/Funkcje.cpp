@@ -115,6 +115,26 @@ void dodajWizyte(Lekarz * gLekarz, Pacjent * gPacjent, string l_nazwisko,unsigne
 	}
 }
 
+bool wizytaIstnieje(Lekarz * gLekarz, string pacjent, unsigned long data)
+{
+	Lekarz * pL = gLekarz;
+	while(pL)
+	{
+		Wizyta * pW = pL->head_wizyty;
+		while(pW)
+		{
+			if (pW->nazwisko_pacjenta == pacjent && pW->data_wizyty == data)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+}
+
 unsigned long pobierzCzas()
 {
 	SYSTEMTIME st;
@@ -151,6 +171,8 @@ void usunKonkretnaWizyte(Wizyta * & head, string pacjent,unsigned long data)
 	Wizyta * p, *pop;
 
 	pop = NULL;
+
+	bool wizyta_istniala = false;
 
 	for (p = head; p != NULL; pop = p, p = p->wsk_nastepna_wizyta)
 	{
@@ -200,20 +222,8 @@ void usunKonkretnegoLekarza(Lekarz *& head, string lekarz)
 	
 }
 
-void usunListeWizyt(Lekarz * gLekarz, string lekarz)
+void usunListeWizyt(Wizyta * & head)
 {
-	Lekarz * pL = gLekarz;
-	Lekarz * usuwanyL = NULL;
-	while (pL)
-	{
-		if (pL->nazwisko == lekarz)
-		{
-			usuwanyL = pL;
-			break;
-		}
-		pL = pL->wsk_nastepny_lekarz;
-	}
-	Wizyta * & head = pL->head_wizyty;
 	while (head)
 	{
 		Wizyta * p = head->wsk_nastepna_wizyta;
@@ -228,6 +238,10 @@ void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned 
 	{
 		cout << "Pacjent " << pacjent << " nie istnieje" << endl;
 		return;
+	}
+	if (!wizytaIstnieje(gLekarz, pacjent, data))
+	{
+		cout << "Pacjent " << pacjent << " nie ma wizyty dnia " << data << endl;
 	}
 	Lekarz * pL = gLekarz;
 	
@@ -250,7 +264,7 @@ void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned 
 			bool data_wystapila = false;
 			bool koniec_wizyt = false;
 			Wizyta * pW = pL->head_wizyty;
-			while (pW)						//petla nieskonczona
+			while (pW)			
 			{
 				if (pW->data_wizyty == data)
 				{
@@ -266,7 +280,6 @@ void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned 
 					wizyta_przepisana = true;
 					return;
 				}
-				//pW = pL->head_wizyty->wsk_nastepna_wizyta;
 				pW = pW->wsk_nastepna_wizyta;
 			}
 			
@@ -279,7 +292,7 @@ void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned 
 
 void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 {
-	if (!lekarzIstnieje(gLekarz, lekarz)) 
+	if (!lekarzIstnieje(gLekarz, lekarz))
 	{
 		cout << "Podany lekarz: " << lekarz << " nie istnieje" << endl;
 		return;
@@ -291,15 +304,15 @@ void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 		if (pL->nazwisko == lekarz)
 		{
 			usuwanyL = pL;
-			break; 
+			break;
 		}
 		pL = pL->wsk_nastepny_lekarz;
 	}
 	pL = gLekarz;
 	Wizyta * pW = usuwanyL->head_wizyty;
-	while (pW)		//nie rozdziela równomiernie
+	while (pW)
 	{
-		if(pL->nazwisko==lekarz)
+		if (pL->nazwisko == lekarz)
 		{
 			if (pL->wsk_nastepny_lekarz == NULL)
 			{
@@ -332,7 +345,7 @@ void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 					wizyta_przepisana = true;
 					break;
 				}
-				if(data_wystapila && koniec_wizyt)
+				if (data_wystapila && koniec_wizyt)
 				{
 					pW->data_wizyty = pW->data_wizyty + 1;
 				}
@@ -349,6 +362,7 @@ void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 		}
 		pW = pW->wsk_nastepna_wizyta;
 	}
+	usunListeWizyt(usuwanyL->head_wizyty);
 }
 
 void usunLekarza(Lekarz *& gLekarz, Pacjent * gPacjent, string lekarz)
@@ -356,7 +370,6 @@ void usunLekarza(Lekarz *& gLekarz, Pacjent * gPacjent, string lekarz)
 	if (lekarzIstnieje(gLekarz, lekarz))
 	{
 		przeniesWizytyLekarza(gLekarz, gPacjent, lekarz);
-		usunListeWizyt(gLekarz, lekarz);
 		usunKonkretnegoLekarza(gLekarz, lekarz);
 	}
 	else

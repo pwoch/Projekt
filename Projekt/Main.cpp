@@ -75,7 +75,7 @@ int main(int argc, char * argv[])
 		}
 		else
 		{
-			cout << "Nieprawidlowa nazwa / sciezka pliku wejsciowego" << endl;
+			cout << "Nazwa / sciezka pliku wejsciowego nie zostala podana lub jest nieprawidlowa" << endl;
 			return -1;
 		}
 	}
@@ -186,7 +186,7 @@ int main(int argc, char * argv[])
 	}
 	else
 	{
-		cout << "Blad pliku flekarz - nie podano nazwy/sciezki" << endl;
+		cout << "Nie podano nazwy/sciezki" << endl;
 	}
 
 	if (fpacjent_path != "undefined")
@@ -218,7 +218,7 @@ int main(int argc, char * argv[])
 	}
 	else
 	{
-		cout << "Blad pliku fpacjent - nie podano nazwy/sciezki" << endl;
+		cout << "Nie podano nazwy/sciezki" << endl;
 	}
 
 	Pacjent * pacjent_tmp = NULL;

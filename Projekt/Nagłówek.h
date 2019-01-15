@@ -78,6 +78,14 @@ void dodajPacjenta(Pacjent * & gPacjent, string p_nazwisko);
 */
 void dodajWizyte(Lekarz * gLekarz, Pacjent * gPacjent, string l_nazwisko, unsigned long data_wizyty, string p_nazwisko);
 
+/** Sprawdzanie czy instnieje juø taka wizyta
+@param gLekarz wskaünik na pierwszy element listy lekarzy
+@param pacjent nazwisko pacjenta do sprawdzenia
+@param data data wizyty do sprawdzenia
+*/
+
+bool wizytaIstnieje(Lekarz * gLekarz, string pacjent, unsigned long data);
+
 /** Pobieranie aktualnej daty*/
 unsigned long pobierzCzas();
 
