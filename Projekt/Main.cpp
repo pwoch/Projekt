@@ -189,7 +189,7 @@ int main(int argc, char * argv[])
 		cout << "Nie podano nazwy/sciezki pliku (flekarz)" << endl;
 	}
 
-	if (fpacjent_path != "undefined")
+	if (fpacjent_path != "undefined" && pacjentIstnieje(gPacjent, nazwisko_pacjenta))
 	{
 		ofstream fpacjent(fpacjent_path);
 		if (fpacjent.good())
@@ -218,7 +218,14 @@ int main(int argc, char * argv[])
 	}
 	else
 	{
-		cout << "Nie podano nazwy/sciezki pliku (fpacjent)" << endl;
+		if (!pacjentIstnieje(gPacjent, nazwisko_pacjenta))
+		{
+			cout << "Blad zapisu w pliku fpacjent: podany pacjent nie istnieje" << endl;
+		}
+		else
+		{
+			cout << "Nie podano nazwy/sciezki pliku (fpacjent)" << endl;
+		}
 	}
 
 	Pacjent * pacjent_tmp = NULL;
@@ -247,8 +254,8 @@ int main(int argc, char * argv[])
 	}
 	delete lekarz_tmp;
 
-	cout << "Wykonano zadane operacje. " << endl;
 	cout << "Zwolniono pamiec. " << endl;
+	cout << "Zakonczono program. " << endl;
 
 	system("pause");
 
