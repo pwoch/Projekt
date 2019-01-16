@@ -413,7 +413,7 @@ void liczSrednie(Lekarz * gLekarz)
 			int mianownik = (miesiac_max - miesiac_min + 1 + (rok_max - rok_min) * 12);
 			if (mianownik != 0)
 			{
-				srednia = iterator / mianownik;
+				srednia = (double)((double)iterator / (double)mianownik);
 			}
 		}
 		
