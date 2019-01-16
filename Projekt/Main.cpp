@@ -218,7 +218,7 @@ int main(int argc, char * argv[])
 	}
 	else
 	{
-		if (!pacjentIstnieje(gPacjent, nazwisko_pacjenta))
+		if (!pacjentIstnieje(gPacjent, nazwisko_pacjenta) && nazwisko_pacjenta != "undefined")
 		{
 			cout << "Blad zapisu w pliku fpacjent: podany pacjent nie istnieje" << endl;
 		}
