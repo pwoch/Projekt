@@ -186,7 +186,7 @@ int main(int argc, char * argv[])
 	}
 	else
 	{
-		cout << "Nie podano nazwy/sciezki" << endl;
+		cout << "Nie podano nazwy/sciezki pliku (flekarz)" << endl;
 	}
 
 	if (fpacjent_path != "undefined")
@@ -218,7 +218,7 @@ int main(int argc, char * argv[])
 	}
 	else
 	{
-		cout << "Nie podano nazwy/sciezki" << endl;
+		cout << "Nie podano nazwy/sciezki pliku (fpacjent)" << endl;
 	}
 
 	Pacjent * pacjent_tmp = NULL;

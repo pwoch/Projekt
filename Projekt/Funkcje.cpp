@@ -127,12 +127,11 @@ bool wizytaIstnieje(Lekarz * gLekarz, string pacjent, unsigned long data)
 			{
 				return true;
 			}
-			else
-			{
-				return false;
-			}
+			pW = pW->wsk_nastepna_wizyta;
 		}
+		pL = pL->wsk_nastepny_lekarz;
 	}
+	return false;
 }
 
 unsigned long pobierzCzas()

@@ -3,7 +3,7 @@ var indexSectionsWithContent =
   0: "dlnpuwz",
   1: "lpw",
   2: "n",
-  3: "dlpuz"
+  3: "dlpuwz"
 };
 
 var indexSectionNames =

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>-fin "C:\Users\Paweł W\source\repos\Projekt\Debug\wizyty.txt" -zamień pKowalski 202103040</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-fin "C:\Users\Paweł W\source\repos\Projekt\Debug\wizyty.txt" -zamień pKowalski 2019101601</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>
