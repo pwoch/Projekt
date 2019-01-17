@@ -74,7 +74,7 @@ void dodajPacjenta(Pacjent * & gPacjent, string p_nazwisko)
 	gPacjent = new Pacjent{ p_nazwisko, gPacjent};
 }
 
-void dodajWizyte(Lekarz * gLekarz, Pacjent * gPacjent, string l_nazwisko,unsigned long data_wizyty, string p_nazwisko)
+bool dodajWizyte(Lekarz * gLekarz, Pacjent * gPacjent, string l_nazwisko,unsigned long data_wizyty, string p_nazwisko)
 {
 	Pacjent * tmpPacjent = NULL;
 	while (gPacjent)
@@ -108,11 +108,12 @@ void dodajWizyte(Lekarz * gLekarz, Pacjent * gPacjent, string l_nazwisko,unsigne
 			if (id_wizyty > 0 && id_wizyty <= 10 && !dataZajeta)
 			{
 				gLekarz->head_wizyty = new Wizyta{ data_wizyty,p_nazwisko,tmpPacjent,gLekarz->head_wizyty };
+				return true;
 			}
-			return;
 		}
 		gLekarz = gLekarz->wsk_nastepny_lekarz;
 	}
+	return false;
 }
 
 bool wizytaIstnieje(Lekarz * gLekarz, string pacjent, unsigned long data)
@@ -340,13 +341,39 @@ void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 				}
 				if (!data_wystapila && koniec_wizyt)
 				{
-					dodajWizyte(gLekarz, gPacjent, pL->nazwisko, pW->data_wizyty, pW->nazwisko_pacjenta);
-					wizyta_przepisana = true;
-					break;
+					bool dodano_wizyte = dodajWizyte(gLekarz, gPacjent, pL->nazwisko, pW->data_wizyty, pW->nazwisko_pacjenta);
+					if (dodano_wizyte)
+					{
+						wizyta_przepisana = true;
+						break;
+					}
+					else
+					{
+						unsigned long data = pW->data_wizyty;
+						string tmp_data = to_string(data);
+						tmp_data[8] = '0';
+						tmp_data[9] = '0';
+						data = stoul(tmp_data);
+						data += 101;
+						pW->data_wizyty = data;
+					}
 				}
 				if (data_wystapila && koniec_wizyt)
 				{
-					pW->data_wizyty = pW->data_wizyty + 1;
+					unsigned long data = pW->data_wizyty;
+					string tmp_data = to_string(data);
+					if (tmp_data[8] < 1)
+					{
+						pW->data_wizyty += 1;
+					}
+					else
+					{
+						tmp_data[8] = '0';
+						tmp_data[9] = '0';
+						data = stoul(tmp_data);
+						data += 101;
+						pW->data_wizyty = data;
+					}
 				}
 				pwiz = pwiz->wsk_nastepna_wizyta;
 			}
@@ -436,4 +463,36 @@ int pobierzMiesiac(unsigned long data)
 	string newData = to_string(tmp_data[4]) + to_string(tmp_data[5]);
 	int month = stoi(newData);
 	return month;
+}
+
+void usunPacjentow(Pacjent * & gPacjent)
+{
+	Pacjent * pacjent_tmp = NULL;
+	while (gPacjent)
+	{
+		pacjent_tmp = gPacjent->wsk_nastepny_pacjent;
+		delete gPacjent;
+		gPacjent = pacjent_tmp;
+	}
+	delete pacjent_tmp;
+}
+
+void usunLekarzy(Lekarz * & gLekarz)
+{
+	Lekarz * lekarz_tmp = NULL;
+	while (gLekarz)
+	{
+		Wizyta * wizyta_tmp = NULL;
+		while (gLekarz->head_wizyty)
+		{
+			wizyta_tmp = gLekarz->head_wizyty->wsk_nastepna_wizyta;
+			delete gLekarz->head_wizyty;
+			gLekarz->head_wizyty = wizyta_tmp;
+		}
+		lekarz_tmp = gLekarz->wsk_nastepny_lekarz;
+		delete gLekarz;
+		gLekarz = lekarz_tmp;
+		delete wizyta_tmp;
+	}
+	delete lekarz_tmp;
 }

@@ -228,31 +228,9 @@ int main(int argc, char * argv[])
 		}
 	}
 
-	Pacjent * pacjent_tmp = NULL;
-	while (gPacjent) 
-	{
-		pacjent_tmp = gPacjent->wsk_nastepny_pacjent;
-		delete gPacjent;
-		gPacjent = pacjent_tmp;
-	}
-	delete pacjent_tmp;
+	usunPacjentow(gPacjent);
 
-	Lekarz * lekarz_tmp = NULL;
-	while (gLekarz) 
-	{
-		Wizyta * wizyta_tmp = NULL;
-		while (gLekarz->head_wizyty) 
-		{
-			wizyta_tmp = gLekarz->head_wizyty->wsk_nastepna_wizyta;
-			delete gLekarz->head_wizyty;
-			gLekarz->head_wizyty = wizyta_tmp;
-		}
-		lekarz_tmp = gLekarz->wsk_nastepny_lekarz;
-		delete gLekarz;
-		gLekarz = lekarz_tmp;
-		delete wizyta_tmp;
-	}
-	delete lekarz_tmp;
+	usunLekarzy(gLekarz);
 
 	cout << "Zwolniono pamiec. " << endl;
 	cout << "Zakonczono program. " << endl;

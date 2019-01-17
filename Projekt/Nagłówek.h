@@ -76,7 +76,7 @@ void dodajPacjenta(Pacjent * & gPacjent, string p_nazwisko);
 @param data_wizyty data dodawanej wizyty
 @param p_nazwisko nazwisko pacjenta, który ma mieæ dodan¹ wizytê
 */
-void dodajWizyte(Lekarz * gLekarz, Pacjent * gPacjent, string l_nazwisko, unsigned long data_wizyty, string p_nazwisko);
+bool dodajWizyte(Lekarz * gLekarz, Pacjent * gPacjent, string l_nazwisko, unsigned long data_wizyty, string p_nazwisko);
 
 /** Sprawdzanie czy instnieje ju¿ taka wizyta
 @param gLekarz wskaŸnik na pierwszy element listy lekarzy
@@ -145,6 +145,10 @@ int pobierzRok(unsigned long data);
 @param data pe³na data
 */
 int pobierzMiesiac(unsigned long data);
+
+void usunPacjentow(Pacjent * & gPacjent);
+
+void usunLekarzy(Lekarz * & gLekarz);
 
 #pragma endregion
 
