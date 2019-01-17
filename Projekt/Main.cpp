@@ -102,7 +102,7 @@ int main(int argc, char * argv[])
 			}
 			else
 			{
-				cout << "Nie mozna usunac lekarza, poniewaz jest jedyny i nie mozna przepisac jego wizyt" << endl;
+				cout << "Nie mozna usunac lekarza, poniewaz zostal tylko jeden lekarz" << endl;
 			}
 			i++;
 		}

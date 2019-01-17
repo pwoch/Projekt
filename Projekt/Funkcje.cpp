@@ -253,10 +253,43 @@ void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned 
 	}
 	pL = gLekarz;
 	string tmp_data = to_string(data);
-	tmp_data[8] = '0';
-	tmp_data[9] = '0';
-	data = stoul(tmp_data);
-	data += 101;
+	if (tmp_data[4] == '1' && tmp_data[5] < '2' || tmp_data[4] == '0')
+	{
+		if (tmp_data[6] < '3')
+		{
+			if (tmp_data[8] < '1')
+			{
+				data += 1;
+			}
+			else
+			{
+				tmp_data[8] = '0';
+				tmp_data[9] = '0';
+				data = stoul(tmp_data);
+				data += 101;
+			}
+		}
+		else
+		{
+			tmp_data[6] = '0';
+			tmp_data[7] = '0';
+			tmp_data[8] = '0';
+			tmp_data[9] = '0';
+			data = stoul(tmp_data);
+			data += 10101;
+		}
+	}
+	else
+	{
+		tmp_data[4] = '0';
+		tmp_data[5] = '0';
+		tmp_data[6] = '0';
+		tmp_data[7] = '0';
+		tmp_data[8] = '0';
+		tmp_data[9] = '0';
+		data = stoul(tmp_data);
+		data += 1010101;
+	}
 	while (wizyta_przepisana == false)
 	{
 		while (pL)
@@ -274,19 +307,58 @@ void zamienWizyte(Lekarz * gLekarz,Pacjent * gPacjent, string pacjent, unsigned 
 				{
 					koniec_wizyt = true;
 				}
-				if (!data_wystapila and koniec_wizyt)
+				if (!data_wystapila && koniec_wizyt)
 				{
-					dodajWizyte(gLekarz, gPacjent, pL->nazwisko, data, pacjent);
-					wizyta_przepisana = true;
-					return;
+					bool dodano_wizyte = dodajWizyte(gLekarz, gPacjent, pL->nazwisko,data, pacjent);
+					if (dodano_wizyte)
+					{
+						wizyta_przepisana = true;
+						return;
+					}
 				}
 				pW = pW->wsk_nastepna_wizyta;
 			}
-			
 			pL = pL->wsk_nastepny_lekarz;
 		}
 		pL = gLekarz;
-		data = data + 1;
+		string tmp_data = to_string(data);
+		if (tmp_data[4] == '1' && tmp_data[5] < '2' || tmp_data[4] == '0')
+		{
+			if (tmp_data[6] <'3')
+			{
+				if (tmp_data[8] < '1')
+				{
+					data += 1;
+				}
+				else
+				{
+					tmp_data[8] = '0';
+					tmp_data[9] = '0';
+					data = stoul(tmp_data);
+					data += 101;
+				}
+			}
+			else
+			{
+				tmp_data[6] = '0';
+				tmp_data[7] = '0';
+				tmp_data[8] = '0';
+				tmp_data[9] = '0';
+				data = stoul(tmp_data);
+				data += 10101;
+			}
+		}
+		else
+		{
+			tmp_data[4] = '0';
+			tmp_data[5] = '0';
+			tmp_data[6] = '0';
+			tmp_data[7] = '0';
+			tmp_data[8] = '0';
+			tmp_data[9] = '0';
+			data = stoul(tmp_data);
+			data += 1010101;
+		}
 	}
 }
 
@@ -351,27 +423,92 @@ void przeniesWizytyLekarza(Lekarz * gLekarz, Pacjent * gPacjent, string lekarz)
 					{
 						unsigned long data = pW->data_wizyty;
 						string tmp_data = to_string(data);
-						tmp_data[8] = '0';
-						tmp_data[9] = '0';
-						data = stoul(tmp_data);
-						data += 101;
-						pW->data_wizyty = data;
+						if (tmp_data[4] == '1' && tmp_data[5] < '2' || tmp_data[4] == '0')
+						{
+							if (tmp_data[6] < '3')
+							{
+								if (tmp_data[8] < '1')
+								{
+									data += 1;
+									pW->data_wizyty = data;
+								}
+								else
+								{
+									tmp_data[8] = '0';
+									tmp_data[9] = '0';
+									data = stoul(tmp_data);
+									data += 101;
+									pW->data_wizyty = data;
+								}
+							}
+							else
+							{
+								tmp_data[6] = '0';
+								tmp_data[7] = '0';
+								tmp_data[8] = '0';
+								tmp_data[9] = '0';
+								data = stoul(tmp_data);
+								data += 10101;
+								pW->data_wizyty = data;
+							}
+						}
+						else
+						{
+							tmp_data[4] = '0';
+							tmp_data[5] = '0';
+							tmp_data[6] = '0';
+							tmp_data[7] = '0';
+							tmp_data[8] = '0';
+							tmp_data[9] = '0';
+							data = stoul(tmp_data);
+							data += 1010101;
+							pW->data_wizyty = data;
+						}
 					}
 				}
 				if (data_wystapila && koniec_wizyt)
 				{
 					unsigned long data = pW->data_wizyty;
 					string tmp_data = to_string(data);
-					if (tmp_data[8] < 1)
+					if (tmp_data[4] == '1' && tmp_data[5] < '2' || tmp_data[4] == '0')
 					{
-						pW->data_wizyty += 1;
+						if (tmp_data[6] < '3')
+						{
+							if (tmp_data[8] < '1')
+							{
+								data += 1;
+								pW->data_wizyty = data;
+							}
+							else
+							{
+								tmp_data[8] = '0';
+								tmp_data[9] = '0';
+								data = stoul(tmp_data);
+								data += 101;
+								pW->data_wizyty = data;
+							}
+						}
+						else
+						{
+							tmp_data[6] = '0';
+							tmp_data[7] = '0';
+							tmp_data[8] = '0';
+							tmp_data[9] = '0';
+							data = stoul(tmp_data);
+							data += 10101;
+							pW->data_wizyty = data;
+						}
 					}
 					else
 					{
+						tmp_data[4] = '0';
+						tmp_data[5] = '0';
+						tmp_data[6] = '0';
+						tmp_data[7] = '0';
 						tmp_data[8] = '0';
 						tmp_data[9] = '0';
 						data = stoul(tmp_data);
-						data += 101;
+						data += 1010101;
 						pW->data_wizyty = data;
 					}
 				}
